@@ -1,0 +1,114 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>New CatInfo</ion-title>
+    <ion-buttons slot="start">
+      <ion-button color="primary" (click)="dismissModal()">
+        Cancel
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="primary" [disabled]="!createCatInfoForm.valid" (click)="submitForm()">
+        Done
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div class="image">
+    <ng-container *ngIf="!createCatInfoForm.get('petphoto').value">
+      <img src="/assets/palceholder.png" alt="Placeholder" width="200">
+    </ng-container>
+    <img [src]="createCatInfoForm.get('petphoto').value" *ngIf="createCatInfoForm.get('petphoto').value" alt="">
+  </div>
+    
+  
+    <div class="button">
+      <button class="myButton">
+        <label for="file-input">Add Pet Photo</label>
+        <input type="file" id="file-input" multiple (change)="onpetPhotosSelected($event)" style="display: none;" />
+      </button>
+    </div>
+
+  <form [formGroup]="createCatInfoForm" #createForm="ngForm" (ngSubmit)="createCatInfo(createCatInfoForm.value)">
+    <ion-card>
+      <ion-item>
+        <ion-label position="floating">Cat Name</ion-label>
+        <ion-input placeholder="Cat Name" clearInput="true" formControlName="name" required></ion-input>
+      </ion-item>
+    </ion-card>
+     
+    <ion-card>
+      <ion-item>
+        <ion-label position="floating">Description</ion-label>
+        <ion-textarea rows="5"placeholder="Description" clearInput="true" formControlName="desc" required></ion-textarea>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-item>
+        <ion-label position="floating">Origin</ion-label>
+        <ion-textarea rows="5"placeholder="Origin" clearInput="true" formControlName="origin"></ion-textarea>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-item>
+        <ion-label position="floating">Height</ion-label>
+        <ion-textarea rows="5"placeholder="Height" clearInput="true" formControlName="height"></ion-textarea>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-item>
+        <ion-label position="floating">Weight</ion-label>
+        <ion-textarea rows="5"placeholder="Weight" clearInput="true" formControlName="weight"></ion-textarea>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-item>
+        <ion-label position="floating">Life Span</ion-label>
+        <ion-textarea rows="5"placeholder="Life Span" clearInput="true" formControlName="life"></ion-textarea>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-item>
+        <ion-label position="floating">Temperament</ion-label>
+        <ion-textarea rows="5"placeholder="Temperament" clearInput="true" formControlName="temp"></ion-textarea>
+      </ion-item>
+    </ion-card>
+
+
+    <h5>Food</h5>
+
+    <ion-card>
+      <ion-item>
+        <ion-textarea rows="5"placeholder="Food" clearInput="true" formControlName="food" ></ion-textarea>
+      </ion-item>
+    </ion-card>
+
+    <h5>Medicine</h5>
+
+    <ion-card>
+      <ion-item>
+        <ion-textarea rows="5"placeholder="Food" clearInput="true" formControlName="med" ></ion-textarea>
+      </ion-item>
+    </ion-card>
+
+    <h5>Activities</h5>
+
+    <ion-card>
+      <ion-item>
+        <ion-textarea rows="5"placeholder="Food" clearInput="true" formControlName="act" ></ion-textarea>
+      </ion-item>
+    </ion-card>
+    
+    <h5>Grooming</h5>
+
+    <ion-card>
+      <ion-item>
+        <ion-textarea rows="5"placeholder="Food" clearInput="true" formControlName="haircut" ></ion-textarea>
+      </ion-item>
+    </ion-card>
+
+  </form>
+</ion-content>

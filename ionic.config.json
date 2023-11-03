@@ -1,0 +1,7 @@
+{
+  "name": "pet-system-admin",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

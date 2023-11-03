@@ -1,0 +1,22 @@
+ion-list{
+    margin-top: 20%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.grid{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+h2{
+    text-align: center;
+}
+
+
+ion-item {
+    --background: #edf1f7;
+    border: 1px solid;
+    border-radius: 50px;
+}

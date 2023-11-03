@@ -1,0 +1,67 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Dogs" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button  *ngIf="petInfo" [routerLink]="'/dog-update/' + petInfo.id">
+        Edit
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  *ngIf="petInfo" class="grid">
+
+  <div>
+    <h2>
+      {{ petInfo.name }}
+    </h2>
+    <img [src]="petInfo.petphoto"/>
+  </div>
+
+  <ion-grid>
+
+    <ion-row>
+      <ion-col size="6">
+       <ion-item [routerLink]="'/dog-info/' + petInfo.id">
+        <ion-icon src="/assets/icon/info.svg"></ion-icon>
+        <ion-title>Info</ion-title>
+       </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-item [routerLink]="'/dog-meds/' + petInfo.id">
+          <ion-icon name="medkit-outline"></ion-icon>
+          <ion-title>Medicine</ion-title>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-item [routerLink]="'/dog-foods/' + petInfo.id">
+          <ion-icon name="restaurant-outline"></ion-icon>
+          <ion-title>Food</ion-title>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-item [routerLink]="'/dog-grooming/' + petInfo.id">
+          <ion-icon name="cut-outline"></ion-icon>
+          <ion-title>Grooming</ion-title>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-item [routerLink]="'/dog-activities/' + petInfo.id">
+          <ion-icon name="shapes-outline"></ion-icon>
+          <ion-title>Activities</ion-title>
+        </ion-item>
+      </ion-col>
+
+    </ion-row>
+
+  </ion-grid>
+
+  <
+
+</ion-content>

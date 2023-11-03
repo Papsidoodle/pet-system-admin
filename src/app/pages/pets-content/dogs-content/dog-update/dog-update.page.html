@@ -1,0 +1,121 @@
+<ion-header class="ion-no-border" *ngIf="petInfo">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="primary" [routerLink]="'/dog-main/' + petInfo.id">
+        Cancel
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button strong="true" color="primary" (click)="submitForm()">
+        Done
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" *ngIf="petInfo">
+
+  <div class="image-container">
+    <img [src]="updatepetInfoForm.get('petphoto')?.value || petInfo.petphoto" *ngIf="updatepetInfoForm.get('petphoto').value || petInfo.petphoto">
+  </div>
+  
+  <div>
+    <!-- Loading indicator div with *ngIf -->
+    <div *ngIf="loading" class="loading-indicator">
+      <!-- You can use a spinner, progress bar, or any other loading animation here -->
+      <div class="lottie-animation">
+        <ng-lottie [options]="uploadfileoption"></ng-lottie>
+      </div>
+      <!-- <div class="spinner"></div> -->
+      <p>Uploading...</p>
+    </div>
+
+    <div class="button">
+      <button class="myButton">
+        <label (click)="inputField.click()">Update Photo</label>
+      </button>
+    </div>
+    <input type="file" #inputField hidden (change)="onPhotoSelected($event)" />
+  </div>
+  <br>
+  
+  <form [formGroup]="updatepetInfoForm" #updateForm="ngForm" (ngSubmit)="updatepetInfo(updatepetInfoForm.value)" *ngIf="petInfo">
+    <ion-card>
+      <ion-item>
+        <ion-label position="floating">Dog Name</ion-label>
+        <ion-input placeholder="Dog Name" clearInput="true" formControlName="name" required></ion-input>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-item>
+        <ion-label position="floating">Description</ion-label>
+        <ion-textarea rows="5"placeholder="Description" clearInput="true" formControlName="desc" required></ion-textarea>
+      </ion-item>
+    </ion-card>
+
+      <ion-card>
+        <ion-item>
+          <ion-label position="floating">Origin</ion-label>
+          <ion-textarea rows="5"placeholder="Origin" clearInput="true" formControlName="origin"></ion-textarea>
+        </ion-item>
+      </ion-card>
+      <ion-card>
+        <ion-item>
+          <ion-label position="floating">Height</ion-label>
+          <ion-textarea rows="5"placeholder="Height" clearInput="true" formControlName="height"></ion-textarea>
+        </ion-item>
+      </ion-card>
+      <ion-card>
+        <ion-item>
+          <ion-label position="floating">Weight</ion-label>
+          <ion-textarea rows="5"placeholder="Weight" clearInput="true" formControlName="weight"></ion-textarea>
+        </ion-item>
+      </ion-card>
+      <ion-card>
+        <ion-item>
+          <ion-label position="floating">Life Span</ion-label>
+          <ion-textarea rows="5"placeholder="Life Span" clearInput="true" formControlName="life"></ion-textarea>
+        </ion-item>
+      </ion-card>
+      <ion-card>
+        <ion-item>
+          <ion-label position="floating">Temperament</ion-label>
+          <ion-textarea rows="5"placeholder="Temperament" clearInput="true" formControlName="temp"></ion-textarea>
+        </ion-item>
+      </ion-card>
+  
+  
+      <h5>Food</h5>
+  
+      <ion-card>
+        <ion-item>
+          <ion-textarea rows="5"placeholder="Food" clearInput="true" formControlName="food" ></ion-textarea>
+        </ion-item>
+      </ion-card>
+  
+      <h5>Medicine</h5>
+      <ion-card>
+        <ion-item>
+          <ion-textarea rows="5"placeholder="Medicine" clearInput="true" formControlName="med" ></ion-textarea>
+        </ion-item>
+      </ion-card>
+  
+      <h5>Grooming</h5>
+      <ion-card>
+        <ion-item>
+          <ion-textarea rows="5"placeholder="Haircut" clearInput="true" formControlName="haircut" ></ion-textarea>
+        </ion-item>
+      </ion-card>
+    
+  
+
+     <div class="button_delete">
+      <div class="myButton_delete">
+        <ion-label button="true" detail="false" (click)="deletepetInfo(petInfo.id)">
+          Delete Item
+        </ion-label>
+      </div>
+     </div>
+     
+  </form>
+</ion-content>

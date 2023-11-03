@@ -1,0 +1,17 @@
+<ion-header *ngIf="petInfo">
+  <ion-toolbar>
+    <ion-buttons slot="start" >
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <p class="title">{{petInfo.name}}</p>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="petInfo">
+  <ion-card>
+    <ion-card-content>
+      <p class="text">{{petInfo.med || 'Cat Medicine'}}</p>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
