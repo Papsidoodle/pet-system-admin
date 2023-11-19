@@ -1,0 +1,141 @@
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="#"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Pets Information</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <div class="slides">
+      <swiper-container
+        class="swiper-container"
+        pagination="true"
+        pagination-clickable="true"
+        space-between="30"
+        [loop]="true"
+        centered-slides="true"
+        autoplay-delay="2500"
+        autoplay-disable-on-interaction="false">
+
+        <swiper-slide *ngFor="let service of servicesSlide" class="service_slide">
+          <p>{{service.title}}</p>
+          <img src="{{service.img}}" alt="">
+        </swiper-slide> 
+      </swiper-container>
+    </div>
+  </div>
+
+  <div class="segment-bg">
+    <h3>Pets</h3>
+    
+    <div class="segment-container">
+      <ion-segment
+        [(ngModel)]="selectedSegment"
+        (ionChange)="segmentChanged()"
+        class="custom-segment"
+      >
+        <ion-segment-button value="1">
+          <div class="lottie-container">
+            <ng-lottie [options]='lottieoptionsdog'></ng-lottie>
+          </div>
+        </ion-segment-button>
+      
+        <ion-segment-button value="2">
+          <div class="lottie-container">
+            <ng-lottie [options]='lottieoptionscat'></ng-lottie>
+          </div>
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+
+    <!-- Content for Dogs -->
+    <div *ngIf="selectedSegment === '1'">
+
+      <div class="stickybar">
+        <div class="input-wrapper">
+          <input type="text" placeholder="Search..." name="text" class="input" [(ngModel)]="search" (input)="onDogSearch()" autocomplete="off">
+        </div>
+      </div>
+
+        <!-- Display no result -->
+      <div *ngIf="!(searchdog | async)?.length && search.trim()">
+        <p>No results found</p>
+      </div>
+
+      <!-- Display if dog exist -->
+      <div *ngIf="searchdog && (searchdog | async)?.length > 0">
+        <div class="pet-container" *ngFor="let dog of (searchdog | async)" [routerLink]="'/dog-main/' + dog.id">
+          <div class="pet-card">
+            <img [src]="dog?.petphoto !== '' ? dog.petphoto : '/assets/palceholder.png'" alt="{{dog.name}}" />
+            <p>{{ dog.name }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Display original view only if there are search results or no search is performed -->
+      <div *ngIf="(searchdog | async)?.length > 0 || !(search.trim())">
+        <div class="pet-container" *ngFor="let dog of dogInfo | async" [routerLink]="'/dog-main/' + dog.id">
+          <div class="pet-card">
+            <img [src]="dog?.petphoto !== '' ? dog.petphoto : '/assets/palceholder.png'" alt="{{dog.name}}" />
+            <p>{{ dog.name }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content for Cats -->
+    <div *ngIf="selectedSegment === '2'">
+
+      <div class="stickybar">
+        <div class="input-wrapper">
+          <input type="text" placeholder="Search..." name="text" class="input" [(ngModel)]="search" (input)="onCatSearch()" autocomplete="off">
+        </div>
+      </div>
+
+      <!-- Display no result -->
+      <div *ngIf="!(searchcat | async)?.length && search.trim()">
+        <p>No results found</p>
+      </div>
+
+      <!-- Display if cat exist -->
+      <div *ngIf="searchcat && (searchcat | async)?.length > 0">
+        <div class="pet-container" *ngFor="let cat of (searchcat | async)" [routerLink]="'/cat-main/' + cat.id">
+          <div class="pet-card">
+            <img [src]="cat?.petphoto !== '' ? cat.petphoto : '/assets/palceholder.png'" alt="{{cat.name}}" />
+            <p>{{ cat.name }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Display orginal view if no search perform -->
+      <div *ngIf="(searchdog | async)?.length > 0 || !(search.trim())">
+        <div class="pet-container" *ngFor="let cat of catInfo | async" [routerLink]="'/cat-main/' + cat.id">
+          <div class="pet-card">
+            <img [src]="cat?.petphoto !== '' ? cat.petphoto : '/assets/palceholder.png'" alt="{{cat.name}}" />
+            <p>{{ cat.name }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button size="large">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="openNewDogModal()" size="large">
+        <img src="/assets/home_icon/dog.png" />
+      </ion-fab-button>
+  
+      <ion-fab-button (click)="openNewCatModal()" size="large">
+        <img src="/assets/home_icon/cat.png" />
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

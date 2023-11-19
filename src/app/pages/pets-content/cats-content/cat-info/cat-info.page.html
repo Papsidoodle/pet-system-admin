@@ -8,10 +8,29 @@
 </ion-header>
 
 <ion-content *ngIf="petInfo">
+
+
+  <h2>Cat Description</h2>
   <ion-card>
     <ion-card-content>
-      <p class="text">{{petInfo.name || 'Cat Info'}}</p>
+      <p class="text">{{petInfo.desc || 'Cat Description'}}</p>
+    </ion-card-content>
+  </ion-card>
+  <h2>Cat Temparament</h2>
+  <ion-card>
+    <ion-card-content>
+      <p class="text">{{petInfo.temp || 'Cat Temparament'}}</p>
+    </ion-card-content>
+  </ion-card>
+  <h2>Cat Origin</h2>
+  <ion-card>
+    <ion-card-content>
+      <p class="text">{{petInfo.origin || 'Cat Origin'}}</p>
     </ion-card-content>
   </ion-card>
 
+
+
+
 </ion-content>
+

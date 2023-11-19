@@ -1,3 +1,4 @@
+
 export interface DogInfo{
     id:string;
     name?:string;
@@ -13,9 +14,18 @@ export interface DogInfo{
     med:string;
     vac:string;
     act:string;
-    haircut:string;
     foodphoto:string;
     haircutphoto:string;
     foodphotoUrls:string;
     common:string;
+    haircut:string[];
+    nail:string[];
+    ear:string[];
+    bath:string[];
+    pupstage:string;
+    adstage:string;
+    senstage:string;
+    puppic:string[];
+    adpic:string[];
+    senpic:string[];
 }

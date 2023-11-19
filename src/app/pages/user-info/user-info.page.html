@@ -1,0 +1,15 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="#"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" *ngIf="user">
+  <h1>{{user.firstname}} {{user.lastname}}</h1>
+  {{pet.petName}} {{pet.age}}
+</ion-content>
+<!-- <ion-list *ngFor="let item of petInfo">
+
+</ion-list> -->

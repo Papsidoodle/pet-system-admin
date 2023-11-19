@@ -2,12 +2,14 @@
   <ion-toolbar>
     <ion-title>New Dog Info</ion-title>
     <ion-buttons slot="start">
-      <ion-button color="primary" (click)="dismissModal()">
-        Cancel
-      </ion-button>
+      <ion-button color="primary" (click)="dismissModal()"> Cancel </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button color="primary" [disabled]="!createDogInfoForm.valid" (click)="submitForm()">
+      <ion-button
+        color="primary"
+        [disabled]="!createDogInfoForm.valid"
+        (click)="submitForm()"
+      >
         Done
       </ion-button>
     </ion-buttons>
@@ -15,97 +17,354 @@
 </ion-header>
 
 <ion-content>
-
-<div class="image">
-  <ng-container *ngIf="!createDogInfoForm.get('petphoto').value">
-    <img src="/assets/palceholder.png" alt="Placeholder" width="200">
-  </ng-container>
-  <img [src]="createDogInfoForm.get('petphoto').value" *ngIf="createDogInfoForm.get('petphoto').value" alt="">
-</div>
-  
+  <div class="image">
+    <ng-container *ngIf="!createDogInfoForm.get('petphoto').value">
+      <img src="/assets/palceholder.png" alt="Placeholder" width="200" />
+    </ng-container>
+    <img
+      [src]="createDogInfoForm.get('petphoto').value"
+      *ngIf="createDogInfoForm.get('petphoto').value"
+      alt=""
+    />
+  </div>
 
   <div class="button">
-    <button class="myButton">
-      <label for="file-input">Add Pet Photo</label>
-      <input type="file" id="file-input" multiple (change)="onpetPhotosSelected($event)" style="display: none;" />
+    <button class="myButton" (click)="takePicture()">
+      <label>Add Pet Photo</label>
     </button>
   </div>
-    
-  <form [formGroup]="createDogInfoForm" #createForm="ngForm" (ngSubmit)="createDogInfo(createDogInfoForm.value)">
+
+  <form
+    [formGroup]="createDogInfoForm"
+    #createForm="ngForm"
+    (ngSubmit)="createDogInfo(createDogInfoForm.value)"
+  >
     <h5>Information</h5>
     <ion-card>
       <ion-item>
         <ion-label position="floating">Dog Name</ion-label>
-        <ion-input placeholder="Dog Name" clearInput="true" formControlName="name" required></ion-input>
+        <ion-input
+          placeholder="Dog Name"
+          clearInput="true"
+          formControlName="name"
+          required
+        ></ion-input>
       </ion-item>
     </ion-card>
-     
+
     <ion-card>
       <ion-item>
         <ion-label position="floating">Description</ion-label>
-        <ion-textarea rows="5"placeholder="Description" clearInput="true" formControlName="desc" required></ion-textarea>
+        <ion-textarea
+          rows="5"
+          placeholder="Description"
+          clearInput="true"
+          formControlName="desc"
+          required
+        ></ion-textarea>
       </ion-item>
     </ion-card>
 
     <ion-card>
       <ion-item>
         <ion-label position="floating">Origin</ion-label>
-        <ion-textarea rows="5"placeholder="Origin" clearInput="true" formControlName="origin"></ion-textarea>
+        <ion-textarea
+          rows="5"
+          placeholder="Origin"
+          clearInput="true"
+          formControlName="origin"
+        ></ion-textarea>
       </ion-item>
     </ion-card>
     <ion-card>
       <ion-item>
         <ion-label position="floating">Height</ion-label>
-        <ion-textarea rows="5"placeholder="Height" clearInput="true" formControlName="height"></ion-textarea>
+        <ion-textarea
+          rows="5"
+          placeholder="Height"
+          clearInput="true"
+          formControlName="height"
+        ></ion-textarea>
       </ion-item>
     </ion-card>
     <ion-card>
       <ion-item>
         <ion-label position="floating">Weight</ion-label>
-        <ion-textarea rows="5"placeholder="Weight" clearInput="true" formControlName="weight"></ion-textarea>
+        <ion-textarea
+          rows="5"
+          placeholder="Weight"
+          clearInput="true"
+          formControlName="weight"
+        ></ion-textarea>
       </ion-item>
     </ion-card>
     <ion-card>
       <ion-item>
         <ion-label position="floating">Life Span</ion-label>
-        <ion-textarea rows="5"placeholder="Life Span" clearInput="true" formControlName="life"></ion-textarea>
+        <ion-textarea
+          rows="5"
+          placeholder="Life Span"
+          clearInput="true"
+          formControlName="life"
+        ></ion-textarea>
       </ion-item>
     </ion-card>
     <ion-card>
       <ion-item>
         <ion-label position="floating">Temperament</ion-label>
-        <ion-textarea rows="5"placeholder="Temperament" clearInput="true" formControlName="temp"></ion-textarea>
+        <ion-textarea
+          rows="5"
+          placeholder="Temperament"
+          clearInput="true"
+          formControlName="temp"
+        ></ion-textarea>
       </ion-item>
     </ion-card>
-
 
     <h5>Food</h5>
 
+    <h4>Puppy Stage</h4>
     <ion-card>
       <ion-item>
-        <ion-textarea rows="5"placeholder="Food" clearInput="true" formControlName="food" ></ion-textarea>
+        <ion-textarea
+          rows="5"
+          placeholder="Puppy Food"
+          clearInput="true"
+          formControlName="pupstage"
+        ></ion-textarea>
       </ion-item>
     </ion-card>
+    <ion-card>
+      <div class="image-hair">
+        <img
+          *ngFor="let imageUrl of puppic"
+          [src]="imageUrl"
+          alt=""
+        />
+      </div>
+    </ion-card>
+  
+    <div class="button">
+      <ion-button
+        (click)="inputpuppy.click()"
+        expand="block"
+        shape="round"
+      >
+        Add Puppy Food Photo
+      </ion-button>
+      <input
+        #inputpuppy
+        hidden
+        type="file"
+        (change)="pupselect($event)"
+        multiple
+      />
+    </div>
+
+   <h4>Adult Stage</h4>
+   <ion-card>
+    <ion-item>
+      <ion-textarea
+        rows="5"
+        placeholder="Adult Food"
+        clearInput="true"
+        formControlName="adstage"
+      ></ion-textarea>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <div class="image-hair">
+      <img
+        *ngFor="let imageUrl of adpic"
+        [src]="imageUrl"
+        alt=""
+      />
+    </div>
+  </ion-card>
+
+  <div class="button">
+    <ion-button
+      (click)="inputadultfood.click()"
+      expand="block"
+      shape="round"
+    >
+      Add Adult Food Photo
+    </ion-button>
+    <input
+      #inputadultfood
+      hidden
+      type="file"
+      (change)="adselect($event)"
+      multiple
+    />
+  </div>
+
+   <h4>Senior Stage</h4>
+   <ion-card>
+    <ion-item>
+      <ion-textarea
+        rows="5"
+        placeholder="Senior Food"
+        clearInput="true"
+        formControlName="senstage"
+      ></ion-textarea>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <div class="image-hair">
+      <img
+        *ngFor="let imageUrl of senpic"
+        [src]="imageUrl"
+        alt=""
+      />
+    </div>
+  </ion-card>
+
+  <div class="button">
+    <ion-button
+      (click)="inputseniorfood.click()"
+      expand="block"
+      shape="round"
+    >
+      Add Senior Food Photo
+    </ion-button>
+    <input
+      #inputseniorfood
+      hidden
+      type="file"
+      (change)="senselect($event)"
+      multiple
+    />
+  </div>
 
     <h5>Medecine</h5>
     <ion-card>
       <ion-item>
-        <ion-textarea rows="5"placeholder="Medicine" clearInput="true" formControlName="med" ></ion-textarea>
+        <ion-textarea
+          rows="5"
+          placeholder="Medicine"
+          clearInput="true"
+          formControlName="med"
+        ></ion-textarea>
       </ion-item>
     </ion-card>
 
     <h5>Activities</h5>
+
     <ion-card>
       <ion-item>
-        <ion-textarea rows="5"placeholder="Medicine" clearInput="true" formControlName="act" ></ion-textarea>
+        <ion-textarea
+          rows="5"
+          placeholder="Medicine"
+          clearInput="true"
+          formControlName="act"
+        ></ion-textarea>
       </ion-item>
     </ion-card>
 
-    <h5>Grooming</h5>
-    <ion-card>
-      <ion-item>
-        <ion-textarea rows="5"placeholder="Haircut" clearInput="true" formControlName="haircut" ></ion-textarea>
-      </ion-item>
-    </ion-card>
+    <h5>Grooming Pictures</h5>
+    <h5>Haircut</h5>
+    <div class="image-hair">
+      <img
+        *ngFor="let imageUrl of haircut"
+        [src]="imageUrl"
+        alt=""
+      />
+    </div>
+    
+      <div class="button">
+        <ion-button
+          (click)="inputhair.click()"
+          expand="block"
+          shape="round"
+        >
+          Add Photo
+        </ion-button>
+        <input
+          #inputhair
+          hidden
+          type="file"
+          (change)="haircutselect($event)"
+          multiple
+        />
+      </div>
+
+      <h5>Nail Grinding</h5>
+
+      <div class="image-hair">
+        <img
+          *ngFor="let nailimage of nail"
+          [src]="nailimage"
+          alt=""
+        />
+      </div>
+      <div class="button">
+        <ion-button
+          (click)="inputnail.click()"
+          expand="block"
+          shape="round"
+        >
+          Add Photo
+        </ion-button>
+        <input
+          #inputnail
+          hidden
+          type="file"
+          (change)="nailselect($event)"
+          multiple
+        />
+      </div>
+
+      <h5>Ear Cleaning</h5>
+      <div class="image-hair">
+        <img
+          *ngFor="let imageUrl of ear"
+          [src]="imageUrl"
+          alt=""
+        />
+      </div>
+      <div class="button">
+        <ion-button
+          (click)="inputear.click()"
+          expand="block"
+          shape="round"
+        >
+          Add Photo
+        </ion-button>
+        <input
+          #inputear
+          hidden
+          type="file"
+          (change)="earselect($event)"
+          multiple
+        />
+      </div>
+
+        
+     
+      <h5>Bath and Blow Dry</h5>
+      <div class="image-hair">
+        <img
+          *ngFor="let imageUrl of bath"
+          [src]="imageUrl"
+          alt=""
+        />
+      </div>
+      <div class="button">
+        <ion-button
+          (click)="inputbat.click()"
+          expand="block"
+          shape="round"
+        >
+          Add Photo
+        </ion-button>
+        <input
+          #inputbat
+          hidden
+          type="file"
+          (change)="bathselect($event)"
+          multiple
+        />
+      </div>
   </form>
 </ion-content>

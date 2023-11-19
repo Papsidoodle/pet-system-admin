@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
@@ -16,6 +16,7 @@ import { DogAddPage } from './dog-add.page';
     DogAddPageRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [DogAddPage]
+  declarations: [DogAddPage],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class DogAddPageModule {}

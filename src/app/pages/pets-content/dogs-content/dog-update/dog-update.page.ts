@@ -20,6 +20,7 @@ import {
   ref,
   uploadBytesResumable,
   getDownloadURL,
+  UploadTask
 } from 'firebase/storage';
 import { AnimationOptions } from 'ngx-lottie';
 import { AlertController, LoadingController } from '@ionic/angular';
@@ -37,6 +38,14 @@ export class DogUpdatePage implements OnInit {
   loading = false;
   sub1: Subscription;
   sub2: Subscription;
+
+  haircut:string[] = [];
+  nail:string[] = [];
+  ear:string[] = [];
+  bath:string[] = [];
+  puppic:string[]=[];
+  adpic:string[]=[];
+  senpic:string[]=[];
 
   @ViewChild('updateForm') updateForm: FormGroupDirective;
 
@@ -73,9 +82,18 @@ export class DogUpdatePage implements OnInit {
           temp: new FormControl(this.petInfo.temp),
           food: new FormControl(this.petInfo.food),
           med: new FormControl(this.petInfo.med),
-          haircut: new FormControl(this.petInfo.haircut),
           act: new FormControl(this.petInfo.act),
           vac: new FormControl(this.petInfo.vac),
+          haircut: new FormControl(this.petInfo.haircut),
+          nail: new FormControl(this.petInfo.nail),
+          ear: new FormControl(this.petInfo.ear),
+          bath: new FormControl(this.petInfo.bath),
+          pupstage:new FormControl(this.petInfo.pupstage),
+          adstage:new FormControl(this.petInfo.adstage),
+          senstage:new FormControl(this.petInfo.senstage),
+          puppic:new FormControl(this.petInfo.puppic),
+          adpic:new FormControl(this.petInfo.adpic),
+          senpic:new FormControl(this.petInfo.senpic),
         });
 
         this.sub2 = this.updatepetInfoForm.valueChanges.subscribe((values) => {
@@ -147,7 +165,7 @@ export class DogUpdatePage implements OnInit {
             // User clicked the "Delete" button, proceed with deletion
             this.petinfoservice
               .deleteDogInfo(petInfoId)
-              .then((res) => this.router.navigate(['/homescreen/']));
+              .then((res) => this.router.navigate(['/pets-info/']));
           },
         },
       ],
@@ -192,4 +210,299 @@ export class DogUpdatePage implements OnInit {
       );
     }
   }
+  //selecting multiple haircut photos
+  haircutselect(event: any) {
+    const storage = getStorage();
+    const files: FileList = event.target.files;
+    const uploadTasks: UploadTask[] = [];
+  
+    // Loop through the selected files and upload them individually
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const filePath = `doghaircut_photos/${file.name}`;
+      const storageRef = ref(storage, filePath);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+  
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          // Handle upload progress
+        },
+        (error) => {
+          // Handle upload error
+          console.error('Upload error:', error);
+        },
+        () => {
+          // Upload complete
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            this.haircut.push(downloadURL); // Store the download URL in an array
+            if (this.haircut.length === event.target.files.length) {
+            this.updatepetInfoForm.patchValue({ haircut: this.haircut });
+            }
+          });
+        }
+      );
+  
+      uploadTasks.push(uploadTask);
+    }
+  
+    // Once all files are uploaded, you can do additional processing or validation
+    Promise.all(uploadTasks.map((task) => task.then())).then(() => {
+      console.log('All files uploaded successfully');
+    });
+  }
+  //selecting multiple nail photos
+  nailselect(event: any) {
+    const storage = getStorage();
+    const files: FileList = event.target.files;
+    const uploadTasks: UploadTask[] = [];
+  
+    // Loop through the selected files and upload them individually
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const filePath = `dognail_photos/${file.name}`;
+      const storageRef = ref(storage, filePath);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+  
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          // Handle upload progress
+        },
+        (error) => {
+          // Handle upload error
+          console.error('Upload error:', error);
+        },
+        () => {
+          // Upload complete
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            this.nail.push(downloadURL); // Store the download URL in an array
+            if (this.nail.length === event.target.files.length) {
+              this.updatepetInfoForm.patchValue({ nail: this.nail });
+              }
+          });
+        }
+      );
+  
+      uploadTasks.push(uploadTask);
+    }
+  
+    // Once all files are uploaded, you can do additional processing or validation
+    Promise.all(uploadTasks.map((task) => task.then())).then(() => {
+      console.log('All files uploaded successfully');
+    });
+  }
+
+  //selecting multiple haircut photos
+  earselect(event: any) {
+    const storage = getStorage();
+    const files: FileList = event.target.files;
+    const uploadTasks: UploadTask[] = [];
+  
+    // Loop through the selected files and upload them individually
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const filePath = `doghaircut_photos/${file.name}`;
+      const storageRef = ref(storage, filePath);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+  
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          // Handle upload progress
+        },
+        (error) => {
+          // Handle upload error
+          console.error('Upload error:', error);
+        },
+        () => {
+          // Upload complete
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            this.ear.push(downloadURL); // Store the download URL in an array
+            if (this.ear.length === event.target.files.length) {
+              this.updatepetInfoForm.patchValue({ ear: this.ear });
+              }
+          });
+        }
+      );
+  
+      uploadTasks.push(uploadTask);
+    }
+  
+    // Once all files are uploaded, you can do additional processing or validation
+    Promise.all(uploadTasks.map((task) => task.then())).then(() => {
+      console.log('All files uploaded successfully');
+    });
+  }
+
+  //selecting multiple haircut photos
+  bathselect(event: any) {
+    const storage = getStorage();
+    const files: FileList = event.target.files;
+    const uploadTasks: UploadTask[] = [];
+  
+    // Loop through the selected files and upload them individually
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const filePath = `doghaircut_photos/${file.name}`;
+      const storageRef = ref(storage, filePath);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+  
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          // Handle upload progress
+        },
+        (error) => {
+          // Handle upload error
+          console.error('Upload error:', error);
+        },
+        () => {
+          // Upload complete
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            this.bath.push(downloadURL); // Store the download URL in an array
+            if (this.bath.length === event.target.files.length) {
+              this.updatepetInfoForm.patchValue({ bath: this.bath });
+              }
+
+          });
+        }
+      );
+  
+      uploadTasks.push(uploadTask);
+    }
+  
+    // Once all files are uploaded, you can do additional processing or validation
+    Promise.all(uploadTasks.map((task) => task.then())).then(() => {
+      console.log('All files uploaded successfully');
+    });
+  }
+  //selecting multiple puppy food photos
+  pupselect(event: any) {
+    const storage = getStorage();
+    const files: FileList = event.target.files;
+    const uploadTasks: UploadTask[] = [];
+  
+    // Loop through the selected files and upload them individually
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const filePath = `dogfood_photos/${file.name}`;
+      const storageRef = ref(storage, filePath);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+  
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          // Handle upload progress
+        },
+        (error) => {
+          // Handle upload error
+          console.error('Upload error:', error);
+        },
+        () => {
+          // Upload complete
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            this.puppic.push(downloadURL); // Store the download URL in an array
+            if (this.puppic.length === event.target.files.length) {
+              this.updatepetInfoForm.patchValue({ puppic: this.puppic });
+              }
+
+          });
+        }
+      );
+  
+      uploadTasks.push(uploadTask);
+    }
+  
+    // Once all files are uploaded, you can do additional processing or validation
+    Promise.all(uploadTasks.map((task) => task.then())).then(() => {
+      console.log('All files uploaded successfully');
+    });
+  }
+  //selecting multiple adult food photos
+  adselect(event: any) {
+    const storage = getStorage();
+    const files: FileList = event.target.files;
+    const uploadTasks: UploadTask[] = [];
+  
+    // Loop through the selected files and upload them individually
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const filePath = `dogfood_photos/${file.name}`;
+      const storageRef = ref(storage, filePath);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+  
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          // Handle upload progress
+        },
+        (error) => {
+          // Handle upload error
+          console.error('Upload error:', error);
+        },
+        () => {
+          // Upload complete
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            this.adpic.push(downloadURL); // Store the download URL in an array
+            if (this.adpic.length === event.target.files.length) {
+              this.updatepetInfoForm.patchValue({ adpic: this.adpic });
+              }
+
+          });
+        }
+      );
+  
+      uploadTasks.push(uploadTask);
+    }
+  
+    // Once all files are uploaded, you can do additional processing or validation
+    Promise.all(uploadTasks.map((task) => task.then())).then(() => {
+      console.log('All files uploaded successfully');
+    });
+  }
+
+   //selecting multiple adult food photos
+   senselect(event: any) {
+    const storage = getStorage();
+    const files: FileList = event.target.files;
+    const uploadTasks: UploadTask[] = [];
+  
+    // Loop through the selected files and upload them individually
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const filePath = `dogfood_photos/${file.name}`;
+      const storageRef = ref(storage, filePath);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+  
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          // Handle upload progress
+        },
+        (error) => {
+          // Handle upload error
+          console.error('Upload error:', error);
+        },
+        () => {
+          // Upload complete
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            this.senpic.push(downloadURL); // Store the download URL in an array
+            if (this.senpic.length === event.target.files.length) {
+              this.updatepetInfoForm.patchValue({ senpic: this.senpic });
+              }
+
+          });
+        }
+      );
+  
+      uploadTasks.push(uploadTask);
+    }
+  
+    // Once all files are uploaded, you can do additional processing or validation
+    Promise.all(uploadTasks.map((task) => task.then())).then(() => {
+      console.log('All files uploaded successfully');
+    });
+  }
+
 }

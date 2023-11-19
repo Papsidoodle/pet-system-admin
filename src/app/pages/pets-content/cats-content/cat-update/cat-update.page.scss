@@ -84,3 +84,19 @@
 	align-items: center;
 	justify-content: center;
   }
+
+  .image-hair img{
+	width: 300px;
+	aspect-ratio: 16/9;
+	object-fit: cover;
+	border: 2px solid;
+	border-radius: 25px;
+	margin-bottom: 10px;
+}
+.image-hair{
+	display: grid;
+grid-template-columns: repeat(2, 1fr);
+grid-template-rows: auto;
+grid-column-gap: 5px;
+grid-row-gap: 5px;
+}

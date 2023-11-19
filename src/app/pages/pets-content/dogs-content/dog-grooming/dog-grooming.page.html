@@ -1,18 +1,60 @@
 <ion-header *ngIf="petInfo">
   <ion-toolbar>
-    <ion-buttons slot="start" >
+    <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
+      
     </ion-buttons>
     <p class="title">{{petInfo.name}}</p>
+    <ion-buttons slot="end">
+      <ion-button color="primary" *ngIf="petInfo" [routerLink]="'/dog-update/' + petInfo.id">
+        Edit
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content *ngIf="petInfo">
-  <ion-card>
-    <ion-card-content>
-      <p class="text">{{petInfo.haircut || 'Dog Grooming'}}</p>
-    </ion-card-content>
-  </ion-card>
+  <ion-card> </ion-card>
 
+  <h5>Haircut</h5>
+
+  <!-- Placeholder when the array is empty -->
+  <ng-template #placeholder>
+    <img src="/assets/palceholder.png" alt="Placeholder" />
+  </ng-template>
+  
+  <div class="image-hair">
+    <ng-container
+      *ngIf="petInfo.haircut && petInfo.haircut.length > 0; else placeholder"
+    >
+      <img *ngFor="let imageUrl of petInfo.haircut" [src]="imageUrl" alt="" />
+    </ng-container>
+  </div>
+
+  <h5>Nail grinding</h5>
+  <div class="image-hair">
+    <ng-container
+      *ngIf="petInfo.nail && petInfo.nail.length > 0; else placeholder"
+    >
+      <img *ngFor="let imageUrl of petInfo.nail" [src]="imageUrl" alt="" />
+    </ng-container>
+  </div>
+
+  <h5>Ear Cleaning</h5>
+  <div class="image-hair">
+    <ng-container
+      *ngIf="petInfo.ear && petInfo.ear.length > 0; else placeholder"
+    >
+      <img *ngFor="let imageUrl of petInfo.ear" [src]="imageUrl" alt="" />
+    </ng-container>
+  </div>
+
+  <h5>Bath and Blow Dry</h5>
+  <div class="image-hair">
+    <ng-container
+      *ngIf="petInfo.bath && petInfo.bath.length > 0; else placeholder"
+    >
+      <img *ngFor="let imageUrl of petInfo.bath" [src]="imageUrl" alt="" />
+    </ng-container>
+  </div>
 </ion-content>
-

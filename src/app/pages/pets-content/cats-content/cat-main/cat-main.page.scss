@@ -1,22 +1,91 @@
-ion-list{
-    margin-top: 20%;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
+
+ion-title {
+    text-transform: capitalize;
+    text-align: center;
+    font-weight: bold;
+}
+ion-toolbar p{
+    text-align: center;
+    text-transform: capitalize;
 }
 
-.grid{
+.container {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-}
-h2{
-    text-align: center;
-}
+
+    position: relative;
+    top: 1.5rem;
+
+    .info {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+
+        position: relative;
+
+        width: 100%;
+
+        .img {
+            display: flex;
+            justify-content: flex-start;
+
+            img {
+                width: 100%;
+                max-width: 200px;
+                height: auto;
+
+                aspect-ratio: 1/1;
+                object-fit: cover;
+
+                box-shadow: 5px 5px 10px 1px #000000;
+            }
+        }
+
+        .desc {
+            display: flex;
+            justify-content: flex-end;
+            flex-direction: column;
+            align-items: flex-start;
+            // lagay font size pag di kasya
+        }
+    }
 
 
-ion-item {
-    --background: #edf1f7;
-    border: 1px solid;
-    border-radius: 50px;
+    .buttons {
+        position: relative;
+
+        top: 1.5rem;
+
+        padding: 20px;
+        width: 100%;
+
+        border-top: 1.5px solid #000000;
+
+        ion-item {
+            --background: #F0EDD4;
+            border: 1px solid;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+
+            .icon {
+                width: 40px;
+                height: 40px;
+            }
+
+            ion-title {
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            ion-icon {
+                font-size: 2rem;
+                color: rgb(169, 169, 169);
+            }
+        }
+    }
 }

@@ -1,18 +1,52 @@
 <ion-header *ngIf="petInfo">
   <ion-toolbar>
-    <ion-buttons slot="start" >
+    <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
+      
     </ion-buttons>
     <p class="title">{{petInfo.name}}</p>
   </ion-toolbar>
 </ion-header>
 
 <ion-content *ngIf="petInfo">
-  <ion-card>
-    <ion-card-content>
-      <p class="text">{{petInfo.food || 'Dog Food'}}</p>
-    </ion-card-content>
-  </ion-card>
+ 
+<!-- Placeholder when the array is empty -->
+<ng-template #placeholder>
+  <img src="/assets/palceholder.png" alt="Placeholder" />
+</ng-template>
+  <h5>Puppy Picture</h5>
+
+  <p>Puppy Food</p>
+  <p class="text">{{petInfo.pupstage || 'Puppy Food Description'}}</p>
+  <div class="image-hair">
+    <ng-container
+      *ngIf="petInfo.puppic && petInfo.puppic.length > 0; else placeholder"
+    >
+      <img *ngFor="let imageUrl of petInfo.puppic" [src]="imageUrl" alt="" />
+    </ng-container>
+  </div>
+
+  <h5>Adult Picture</h5>
+  <p>Puppy Food</p>
+  <p class="text">{{petInfo.adstage || 'Adult Food Description'}}</p>
+  <div class="image-hair">
+    <ng-container
+      *ngIf="petInfo.adpic && petInfo.adpic.length > 0; else placeholder"
+    >
+      <img *ngFor="let imageUrl of petInfo.adpic" [src]="imageUrl" alt="" />
+    </ng-container>
+  </div>
+
+  <h5>Senior Picture</h5>
+  <p>Puppy Food</p>
+  <p class="text">{{petInfo.senstage || 'Senior Food Description'}}</p>
+  <div class="image-hair">
+    <ng-container
+      *ngIf="petInfo.senpic && petInfo.senpic.length > 0; else placeholder"
+    >
+      <img *ngFor="let imageUrl of petInfo.senpic" [src]="imageUrl" alt="" />
+    </ng-container>
+  </div>
+
   
 </ion-content>
-

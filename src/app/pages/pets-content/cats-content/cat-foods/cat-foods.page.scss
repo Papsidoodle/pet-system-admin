@@ -9,3 +9,24 @@
     line-height: 1.5;
     
 }
+
+h5{
+    text-align: center;
+}
+.image-hair img{
+	width: 300px;
+	aspect-ratio: 16/9;
+	object-fit: cover;
+	border: 2px solid;
+	border-radius: 25px;
+	margin-bottom: 10px;
+}
+.image-hair {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    grid-column-gap: 10px;
+    margin: 10px;
+    place-items: center; /* Center both horizontally and vertically */
+  }
+  

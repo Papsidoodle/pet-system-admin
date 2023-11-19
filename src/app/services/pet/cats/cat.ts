@@ -12,5 +12,14 @@ export interface CatInfo{
     med?:string;
     vac?:string;
     act?:string;
-    haircut?:string;
+    haircut?:string[];
+    nail?:string[];
+    ear?:string[];
+    bath?:string[];
+    pupstage?:string;
+    adstage?:string;
+    senstage?:string;
+    puppic?:string[];
+    adpic?:string[];
+    senpic?:string[];
 }

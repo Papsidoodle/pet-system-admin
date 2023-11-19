@@ -87,6 +87,16 @@ const routes: Routes = [
     path: 'cat-update/:id',
     loadChildren: () => import('./pages/pets-content/cats-content/cat-update/cat-update.module').then( m => m.CatUpdatePageModule)
   },
+  {
+    path: 'pets-info',
+    loadChildren: () => import('./pages/pets-info/pets-info.module').then( m => m.PetsInfoPageModule)
+  },
+  {
+    path: 'user-info/:uid',
+    loadChildren: () => import('./pages/user-info/user-info.module').then( m => m.UserInfoPageModule)
+  },
+
+
 
 
 

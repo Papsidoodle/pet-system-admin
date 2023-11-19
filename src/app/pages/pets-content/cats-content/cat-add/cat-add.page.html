@@ -16,6 +16,9 @@
 
 <ion-content [fullscreen]="true">
 
+  
+
+
   <div class="image">
     <ng-container *ngIf="!createCatInfoForm.get('petphoto').value">
       <img src="/assets/palceholder.png" alt="Placeholder" width="200">
@@ -24,12 +27,11 @@
   </div>
     
   
-    <div class="button">
-      <button class="myButton">
-        <label for="file-input">Add Pet Photo</label>
-        <input type="file" id="file-input" multiple (change)="onpetPhotosSelected($event)" style="display: none;" />
-      </button>
-    </div>
+  <div class="button">
+    <button class="myButton" (click)="takePicture()">
+      <label>Add Pet Photo</label>
+    </button>
+  </div>
 
   <form [formGroup]="createCatInfoForm" #createForm="ngForm" (ngSubmit)="createCatInfo(createCatInfoForm.value)">
     <ion-card>
@@ -80,19 +82,120 @@
 
     <h5>Food</h5>
 
+    <h4>Kitten Stage</h4>
     <ion-card>
       <ion-item>
-        <ion-textarea rows="5"placeholder="Food" clearInput="true" formControlName="food" ></ion-textarea>
+        <ion-textarea
+          rows="5"
+          placeholder="Kitten Food"
+          clearInput="true"
+          formControlName="pupstage"
+        ></ion-textarea>
       </ion-item>
     </ion-card>
-
-    <h5>Medicine</h5>
-
     <ion-card>
-      <ion-item>
-        <ion-textarea rows="5"placeholder="Food" clearInput="true" formControlName="med" ></ion-textarea>
-      </ion-item>
+      <div class="image-hair">
+        <img
+          *ngFor="let imageUrl of puppic"
+          [src]="imageUrl"
+          alt=""
+        />
+      </div>
     </ion-card>
+  
+    <div class="button">
+      <ion-button
+        (click)="inputpuppy.click()"
+        expand="block"
+        shape="round"
+      >
+        Add Kitten Food Photo
+      </ion-button>
+      <input
+        #inputpuppy
+        hidden
+        type="file"
+        (change)="pupselect($event)"
+        multiple
+      />
+    </div>
+
+   <h4>Kitten Stage</h4>
+   <ion-card>
+    <ion-item>
+      <ion-textarea
+        rows="5"
+        placeholder="Kitten Food"
+        clearInput="true"
+        formControlName="adstage"
+      ></ion-textarea>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <div class="image-hair">
+      <img
+        *ngFor="let imageUrl of adpic"
+        [src]="imageUrl"
+        alt=""
+      />
+    </div>
+  </ion-card>
+
+  <div class="button">
+    <ion-button
+      (click)="inputadultfood.click()"
+      expand="block"
+      shape="round"
+    >
+      Add Kitten Food Photo
+    </ion-button>
+    <input
+      #inputadultfood
+      hidden
+      type="file"
+      (change)="adselect($event)"
+      multiple
+    />
+  </div>
+
+   <h4>Senior Stage</h4>
+   <ion-card>
+    <ion-item>
+      <ion-textarea
+        rows="5"
+        placeholder="Senior Food"
+        clearInput="true"
+        formControlName="senstage"
+      ></ion-textarea>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <div class="image-hair">
+      <img
+        *ngFor="let imageUrl of senpic"
+        [src]="imageUrl"
+        alt=""
+      />
+    </div>
+  </ion-card>
+
+  <div class="button">
+    <ion-button
+      (click)="inputseniorfood.click()"
+      expand="block"
+      shape="round"
+    >
+      Add Senior Food Photo
+    </ion-button>
+    <input
+      #inputseniorfood
+      hidden
+      type="file"
+      (change)="senselect($event)"
+      multiple
+    />
+  </div>
+
 
     <h5>Activities</h5>
 
@@ -102,13 +205,110 @@
       </ion-item>
     </ion-card>
     
-    <h5>Grooming</h5>
+    <h5>Grooming Pictures</h5>
+    <h5>Haircut</h5>
+    <div class="image-hair">
+      <img
+        *ngFor="let imageUrl of haircut"
+        [src]="imageUrl"
+        alt=""
+      />
+    </div>
+    
+      <div class="button">
+        <ion-button
+          (click)="inputhair.click()"
+          expand="block"
+          shape="round"
+        >
+          Add Photo
+        </ion-button>
+        <input
+          #inputhair
+          hidden
+          type="file"
+          (change)="haircutselect($event)"
+          multiple
+        />
+      </div>
 
-    <ion-card>
-      <ion-item>
-        <ion-textarea rows="5"placeholder="Food" clearInput="true" formControlName="haircut" ></ion-textarea>
-      </ion-item>
-    </ion-card>
+      <h5>Nail Grinding</h5>
+
+      <div class="image-hair">
+        <img
+          *ngFor="let nailimage of nail"
+          [src]="nailimage"
+          alt=""
+        />
+      </div>
+      <div class="button">
+        <ion-button
+          (click)="inputnail.click()"
+          expand="block"
+          shape="round"
+        >
+          Add Photo
+        </ion-button>
+        <input
+          #inputnail
+          hidden
+          type="file"
+          (change)="nailselect($event)"
+          multiple
+        />
+      </div>
+
+      <h5>Ear Cleaning</h5>
+      <div class="image-hair">
+        <img
+          *ngFor="let imageUrl of ear"
+          [src]="imageUrl"
+          alt=""
+        />
+      </div>
+      <div class="button">
+        <ion-button
+          (click)="inputear.click()"
+          expand="block"
+          shape="round"
+        >
+          Add Photo
+        </ion-button>
+        <input
+          #inputear
+          hidden
+          type="file"
+          (change)="earselect($event)"
+          multiple
+        />
+      </div>
+
+        
+     
+      <h5>Bath and Blow Dry</h5>
+      <div class="image-hair">
+        <img
+          *ngFor="let imageUrl of bath"
+          [src]="imageUrl"
+          alt=""
+        />
+      </div>
+      <div class="button">
+        <ion-button
+          (click)="inputbat.click()"
+          expand="block"
+          shape="round"
+        >
+          Add Photo
+        </ion-button>
+        <input
+          #inputbat
+          hidden
+          type="file"
+          (change)="bathselect($event)"
+          multiple
+        />
+      </div>
 
   </form>
 </ion-content>
