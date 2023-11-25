@@ -79,9 +79,9 @@ export class PetsInfoService {
     );
   }
 
-  getPetInfo(uid: string, petName: string): Observable<PetsInfo | any> {
+  getPetInfo(uid: string, petId: string): Observable<PetsInfo | any> {
     const ref = collection(this.firestore, `pets/${uid}/petInfo`);
-    const pet = query(ref, where('petId', '==', petName));
+    const pet = query(ref, where('petId', '==', petId));
 
     return collectionData(pet).pipe(
       map((pet) => {

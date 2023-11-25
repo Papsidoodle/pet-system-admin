@@ -12,8 +12,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
+import { Firestore } from '@angular/fire/firestore';
 import { IonModal } from '@ionic/angular';
-import { addDoc, collection, Firestore } from '@angular/fire/firestore';
+
 @Component({
   selector: 'app-user-info',
   templateUrl: './user-info.page.html',
@@ -184,7 +185,6 @@ export class UserInfoPage implements OnInit {
   
   // add owner's pet
   async addPet() {
-    
     const petId = this.userId;
     const petInfo = this.petsInfo.value;
 

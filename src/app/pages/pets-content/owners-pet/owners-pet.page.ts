@@ -7,6 +7,7 @@ import { PetsInfoService } from 'src/app/services/pet/pets/pets-info.service';
 import { User } from 'src/app/services/user/users';
 import { UsersService } from 'src/app/services/user/users.service';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { ScheduleService } from 'src/app/services/pet/schedule/schedule.service';
 
 @Component({
   selector: 'app-owners-pet',
@@ -26,9 +27,12 @@ export class OwnersPetPage implements OnInit {
   pets: Subscription;
   petSub: Subscription;
 
-  public petAppointments: PetsAppointment[];
+  // public petAppointments: PetsAppointment[];
 
   default = 'assets/palceholder.png';
+
+  public apps: PetsAppointment[];  
+  appointments: Subscription;
 
   constructor(
     private userService: UsersService,
@@ -37,7 +41,8 @@ export class OwnersPetPage implements OnInit {
     private petService: PetsInfoService,
     private router: Router, 
     private alertCtrl: AlertController,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private sched: ScheduleService
     ) { }
 
   ngOnInit() {
@@ -58,10 +63,10 @@ export class OwnersPetPage implements OnInit {
     this.pets = this.petService.getPetInfo(uid, petId).subscribe((pet) => {
       this.pet = pet;
       console.log(pet);
-    })
+    });
   }
 
-  async deletePet(userId:string[],petId:string) {
+  async deletePet(userId:string[], petId:string) {
     const loading = this.loadingCtrl.create();
 
     const alert = this.alertCtrl.create({

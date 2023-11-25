@@ -68,28 +68,26 @@
   </div>
 
   <div class="appointment-container" *ngFor="let pet of pet">
-    <button class="appointment-buttons">Schedule of Appointment</button>
-    <button
-      class="appointment-buttons"
-      [routerLink]="['/schedule/' + pet.petId + '/0']"
-    >
+    <ion-button class="appointment-buttons" [routerLink]="['/schedule/' + user.uid + '/' + pet.petId]">
+      Add Appointment
+    </ion-button>
+
+    <ion-button class="appointment-buttons" [routerLink]="['/appointments/' + user.uid + '/' + pet.petId + '/' + 0]">
+      AntiRabies Appointments
+    </ion-button>
+
+    <ion-button class="appointment-buttons" [routerLink]="['/appointments/' + user.uid + '/' + pet.petId + '/' + 1]">
+      Deworming Appointments
+    </ion-button>
+
+    <ion-button class="appointment-buttons" [routerLink]="['/appointments/' + user.uid + '/' + pet.petId + '/' + 2]">
+      Kennel Cough Appointments
+    </ion-button>
+
+    <ion-button class="appointment-buttons" [routerLink]="['/appointments/' + user.uid + '/' + pet.petId + '/' + 3]">
       Tick and Flea / Heartworm Preventative
-    </button>
+    </ion-button>
 
-    <button
-      class="appointment-buttons"
-      [routerLink]="['/schedule/' + pet.petId + '/1']"
-    >
-      Deworming Schedule
-    </button>
-
-    <button
-      class="appointment-buttons"
-      [routerLink]="['/schedule/' + pet.petId + '/2']"
-    >
-      Vaccination Schedule
-    </button>
-
-    <button class="appointment-buttons">Medical History</button>
+    <ion-button class="appointment-buttons">Medical History</ion-button>
   </div>
 </ion-content>

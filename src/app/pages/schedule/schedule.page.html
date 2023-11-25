@@ -3,19 +3,41 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="#"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{header}}</ion-title>
+    <ion-title>Add Appointment</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div *ngFor="let schedule of schedules">
-    <p>{{schedule.brand}}</p>
-    <p>{{schedule.date}}</p>
-    <p>{{schedule.expiry}}</p>
-    <p>{{schedule.for}}</p>
-    <p>{{schedule.petId}}</p>
-    <p>{{schedule.type}}</p>
-    <p>{{schedule.veterinarian}}</p>
-    <p>{{schedule.weight}}</p>
+  <div class="container">
+    <form (ngSubmit)="addSchedule()" [formGroup]="appointmentInfo">
+      <ion-item lines="none">
+        <ion-select type="number" formControlName="appointmentType" label="Vaccination Type" labelPlacement="floating">
+          <ion-select-option [value]=0>AntiRabies</ion-select-option>
+          <ion-select-option [value]=1>Deworming</ion-select-option>
+          <ion-select-option [value]=2>Kennel Cough</ion-select-option>
+          <ion-select-option [value]=3>Tick and Flea/Heartworm Preventative</ion-select-option>
+        </ion-select>
+      </ion-item>
+  
+      <ion-item lines="none">
+        <ion-input formControlName="vetName" label="Veterinarian's Name" labelPlacement="floating"></ion-input>
+      </ion-item>
+      
+      <ion-item lines="none">
+        <ion-input type="number" formControlName="weight" label="Weight" labelPlacement="floating"></ion-input>
+      </ion-item>
+  
+      <div class="image">
+        <img [src]="appointmentInfo.get('brandImg').value" width="200" *ngIf="appointmentInfo.get('brandImg').value" />
+      </div>
+  
+      <div class="button">
+        <button class="myButton" (click)="takePicture()">
+          <label>Brand Image</label>
+        </button>
+      </div>
+      
+      <ion-button type="submit" [disabled]="!appointmentInfo.valid" shape="round">Add Appointment</ion-button>
+    </form>
   </div>
 </ion-content>

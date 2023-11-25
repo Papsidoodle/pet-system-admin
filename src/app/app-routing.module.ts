@@ -178,9 +178,14 @@ const routes: Routes = [
     loadChildren: () => import('./pages/pets-content/owners-pet-update/owners-pet-update.module').then( m => m.OwnersPetUpdatePageModule)
   },
   {
-    path: 'schedule/:petId/:appointmentType',
+    path: 'schedule/:uid/:petId',
     loadChildren: () => import('./pages/schedule/schedule.module').then( m => m.SchedulePageModule)
   },
+  {
+    path: 'appointments/:uid/:petId/:appointmentType',
+    loadChildren: () => import('./pages/appointments/appointments.module').then( m => m.AppointmentsPageModule)
+  },
+
 
 
   
