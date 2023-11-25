@@ -32,6 +32,7 @@ import Swiper from 'swiper';
   styleUrls: ['./dog-update.page.scss'],
 })
 export class DogUpdatePage implements OnInit {
+
   public petInfo: DogInfo;
   updatepetInfoForm: FormGroup;
   formIsEdited: boolean = false;
@@ -43,7 +44,7 @@ export class DogUpdatePage implements OnInit {
   nail:string[] = [];
   ear:string[] = [];
   bath:string[] = [];
-  puppic:string[]=[];
+  puppic:string[] = [];
   adpic:string[]=[];
   senpic:string[]=[];
 

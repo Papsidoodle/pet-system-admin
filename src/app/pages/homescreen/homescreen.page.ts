@@ -14,7 +14,6 @@ export class HomescreenPage implements OnInit {
 
   constructor(private userService: UsersService) {
     this.user = this.userService.getUsersInfo();
-    console.log(this.user);
   }
 
   servicesSlide: any[] = [

@@ -62,6 +62,7 @@ export class DogsInfoService {
     return deleteDoc(document);
   }
 
+  
   searchDog(search:string): Observable<DogInfo[]>{
     const infoCollection = collection(this.firestore, 'DogBreed');
     const searchlower = search.toLowerCase();

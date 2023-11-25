@@ -3,10 +3,11 @@ import {
   Firestore,
   collection,
   collectionData,
+  collectionSnapshots,
   doc,
   docSnapshots,
 } from '@angular/fire/firestore';
-import { orderBy, query, setDoc } from 'firebase/firestore';
+import { orderBy, query, setDoc, where } from 'firebase/firestore';
 import { Observable, from, map } from 'rxjs';
 import { PetsInfo } from 'src/app/models/pets';
 import { User } from './users';
@@ -35,18 +36,10 @@ export class UsersService {
     );
   }
 
-  getUsersPetById(uid: string): Observable<PetsInfo> {
-    const document = doc(this.firestore, `pets/${uid}`);
-    return docSnapshots(document).pipe(
-      map((doc) => {
-        const data = doc.data();
-        return { ...data } as PetsInfo;
-      })
-    );
-  }
-
-  addPetInfo(pet: PetsInfo): Observable<void> {
-    const ref = doc(this.firestore, 'pets', pet.petID);
-    return from(setDoc(ref, pet));
+  getUsersPetById(uid: string): Observable<PetsInfo[] | any> {
+    const ref = collection(this.firestore, `pets`);
+    const getByUserId = query(ref, where('uid', '==', uid));
+    
+    return collectionData(getByUserId).pipe(map((pets) => pets as PetsInfo[]));
   }
 }

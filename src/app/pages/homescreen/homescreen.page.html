@@ -37,7 +37,7 @@
     </div>
 
     <div class="users">
-      <h2>List of Users</h2>
+      <h2>List of Owners</h2>
 
       <ion-list *ngFor="let user of user | async">
         <ion-item lines="none" button [routerLink]="['/user-info/' + user.uid]">

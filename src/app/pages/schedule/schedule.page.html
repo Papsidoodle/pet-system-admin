@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="#"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{header}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div *ngFor="let schedule of schedules">
+    <p>{{schedule.brand}}</p>
+    <p>{{schedule.date}}</p>
+    <p>{{schedule.expiry}}</p>
+    <p>{{schedule.for}}</p>
+    <p>{{schedule.petId}}</p>
+    <p>{{schedule.type}}</p>
+    <p>{{schedule.veterinarian}}</p>
+    <p>{{schedule.weight}}</p>
+  </div>
+</ion-content>

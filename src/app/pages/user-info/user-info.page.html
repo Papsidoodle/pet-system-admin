@@ -3,13 +3,120 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="#"></ion-back-button>
     </ion-buttons>
+    <ion-title>Owner's Pets</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" *ngIf="user">
-  <h1>{{user.firstname}} {{user.lastname}}</h1>
-  {{pet.petName}} {{pet.age}}
-</ion-content>
-<!-- <ion-list *ngFor="let item of petInfo">
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button id="openModal">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
-</ion-list> -->
+  <div class="panel">
+    <ion-item lines="none">
+      <ion-avatar slot="start">
+        <img [src]="user.imgUrl">
+      </ion-avatar>
+      <ion-label>{{user.firstname}} {{user.lastname}}</ion-label>
+    </ion-item>
+    
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" *ngFor="let pets of pet">
+          <ion-card button [routerLink]="['/owners-pet/' + user.uid + '/' + pets.petId]">
+            <img [src]="pets.petImg" height="150px">
+            <p class="card-text">{{pets.petName}}</p>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
+
+<ion-modal *ngIf="user" trigger="openModal" class="modal-handle" [presentingElement]="presentingElement">
+  <ng-template>
+    <ion-header [translucent]="true">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button shape="round" fill="clear" (click)="closeModal()">Cancel</ion-button>
+        </ion-buttons>
+        
+        <ion-title>Add Pet Info</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content [fullscreen]="true">
+      <div class="container">
+        <form (ngSubmit)="addPet()" [formGroup]="petsInfo">
+          <div class="petImg">
+            <img [src]="default" *ngIf="!petsInfo.get('petImg').value">
+            <img [src]="petsInfo.get('petImg').value || 'assets/icon/template.png'" *ngIf="petsInfo.get('petImg').value">
+          </div>
+
+          <div class="button">
+            <button class="myButton" (click)="takePicture()">
+              <label>Add Pet Photo</label>
+            </button>
+          </div>
+
+          <ion-item lines="none">
+            <ion-input formControlName="petName" label="Pet Name" labelPlacement="floating"></ion-input>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-input formControlName="age" type="number" label="Age" labelPlacement="floating"></ion-input>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-input formControlName="birthday" type="date" label="Birthday" labelPlacement="floating"></ion-input>
+          </ion-item>
+          
+          <div class="measurement">
+            <div class="ht">
+              <ion-item lines="none">
+                <ion-input formControlName="height" type="number" label="Height" labelPlacement="floating"></ion-input>
+              </ion-item>
+            </div>
+
+            <div class="wt">
+              <ion-item lines="none">
+                <ion-input formControlName="weight" type="number" label="Weight" labelPlacement="floating"></ion-input>
+              </ion-item>
+            </div>
+          </div>
+
+          <ion-item lines="none">
+            <ion-select formControlName="kind" label="Kind" labelPlacement="floating">
+              <ion-select-option value="Cat">Cat</ion-select-option>
+              <ion-select-option value="Dog">Dog</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-input formControlName="breed" label="Breed" labelPlacement="floating"></ion-input>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-input formControlName="color" label="Color" labelPlacement="floating"></ion-input>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-select formControlName="gender" label="Gender" labelPlacement="floating">
+              <ion-select-option value="Male">Male</ion-select-option>
+              <ion-select-option value="Female">Female</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-input formControlName="chipNo" type="number" label="Chip No" labelPlacement="floating"></ion-input>
+          </ion-item>
+          
+          <ion-button type="submit" [disabled]="!petsInfo.valid" expand="full" shape="round">Add Pet</ion-button>
+        </form>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>

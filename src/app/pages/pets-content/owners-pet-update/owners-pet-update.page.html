@@ -1,0 +1,79 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="#"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Update Pet Info</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" >
+  <div class="container">
+    <form [formGroup]="updatepetInfoForm" (ngSubmit)="updatepetInfo(updatepetInfoForm.value)" *ngIf="petdata">
+      <div class="petImg">
+        <img [src]="updatepetInfoForm.get('petImg').value || 'assets/icon/template.png'" *ngIf="updatepetInfoForm.get('petImg').value">
+      </div>
+
+      <div class="button">
+        <button class="myButton" (click)="takePicture()">
+          <label>Add Pet Photo</label>
+        </button>
+      </div>
+
+      <ion-item lines="none">
+        <ion-input formControlName="petName" label="Pet Name" labelPlacement="floating"></ion-input>
+      </ion-item>
+  
+      <ion-item lines="none">
+        <ion-input formControlName="age" type="number" label="Age" labelPlacement="floating"></ion-input>
+      </ion-item>
+  
+      <ion-item lines="none">
+        <ion-input formControlName="birthday" type="date" label="Birthday" labelPlacement="floating"></ion-input>
+      </ion-item>
+      
+      <div class="measurement">
+        <div class="ht">
+          <ion-item lines="none">
+            <ion-input formControlName="height" type="number" label="Height" labelPlacement="floating"></ion-input>
+          </ion-item>
+        </div>
+  
+        <div class="wt">
+          <ion-item lines="none">
+            <ion-input formControlName="weight" type="number" label="Weight" labelPlacement="floating"></ion-input>
+          </ion-item>
+        </div>
+      </div>
+  
+      <ion-item lines="none">
+        <ion-select formControlName="kind" label="Kind" labelPlacement="floating">
+          <ion-select-option value="Cat">Cat</ion-select-option>
+          <ion-select-option value="Dog">Dog</ion-select-option>
+        </ion-select>
+      </ion-item>
+  
+      <ion-item lines="none">
+        <ion-input formControlName="breed" label="Breed" labelPlacement="floating"></ion-input>
+      </ion-item>
+  
+      <ion-item lines="none">
+        <ion-input formControlName="color" label="Color" labelPlacement="floating"></ion-input>
+      </ion-item>
+  
+      <ion-item lines="none">
+        <ion-select formControlName="gender" label="Gender" labelPlacement="floating">
+          <ion-select-option value="Male">Male</ion-select-option>
+          <ion-select-option value="Female">Female</ion-select-option>
+        </ion-select>
+      </ion-item>
+  
+      <ion-item lines="none">
+        <ion-input formControlName="chipNo" type="number" label="Chip No" labelPlacement="floating"></ion-input>
+      </ion-item>
+      
+      <ion-button class="updateBtn" type="submit" [disabled]="!updatepetInfoForm.valid" expand="full" shape="round">Update Info</ion-button>
+    </form>
+  </div>
+</ion-content>
+

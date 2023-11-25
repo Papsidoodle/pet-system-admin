@@ -78,7 +78,7 @@
       </div>
 
       <!-- Display original view only if there are search results or no search is performed -->
-      <div *ngIf="(searchdog | async)?.length > 0 || !(search.trim())">
+      <div *ngIf="(searchcat | async)?.length > 0 || !(search.trim())">
         <div class="pet-container" *ngFor="let dog of dogInfo | async" [routerLink]="'/dog-main/' + dog.id">
           <div class="pet-card">
             <img [src]="dog?.petphoto !== '' ? dog.petphoto : '/assets/palceholder.png'" alt="{{dog.name}}" />
