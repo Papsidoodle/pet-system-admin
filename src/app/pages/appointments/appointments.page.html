@@ -17,19 +17,20 @@
         <th>Veterinarian</th>
       </tr>
 
-      <tr *ngFor="let sched of apps">
+      <tr
+        *ngFor="let sched of apps"
+        [routerLink]="'/schedule/'+ userId + '/' + sched.petId + '/' + sched.appointmentId"
+      >
         <td>{{sched.appointmentDate}}</td>
 
         <td>{{sched.weight}}</td>
 
         <td>
-          <img [src]="sched.brandImg">
+          <img [src]="sched.brandImg" />
         </td>
 
         <td>{{sched.vetName}}</td>
       </tr>
     </table>
-
-    
   </div>
 </ion-content>

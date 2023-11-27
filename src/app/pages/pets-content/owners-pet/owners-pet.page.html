@@ -61,33 +61,73 @@
     </div>
 
     <ng-container *ngIf="user">
-      <ion-button class="updateBtn" expand="block" [routerLink]="['/owners-pet-update/' + user.uid + '/' + pet.petId]">
+      <ion-button
+        class="updateBtn"
+        expand="block"
+        [routerLink]="['/owners-pet-update/' + user.uid + '/' + pet.petId]"
+      >
         Edit/Update
       </ion-button>
     </ng-container>
   </div>
 
   <div class="appointment-container" *ngFor="let pet of pet">
-    <ion-button class="appointment-buttons" [routerLink]="['/schedule/' + user.uid + '/' + pet.petId]">
+    <!-- Hidden List para custom ugn Design dun sa schedule of appointments -->
+    <ion-item>
+      <ion-list class="">
+        <ion-select
+          id="select"
+          aria-label="schedules"
+          label="Schedule of Appointments"
+          labelPlacement="stacked"
+          (ionChange)="goToAppointment($event)"
+        >
+          <ion-select-option
+            *ngFor="let appointments of apps"
+            value="{{appointments.appointmentId}}"
+          >
+            {{appointmentTypes[appointments.appointmentType]}}
+            {{appointments.appointmentDate}}
+          </ion-select-option>
+        </ion-select>
+      </ion-list>
+    </ion-item>
+
+    <ion-button
+      class="appointment-buttons"
+      [routerLink]="['/schedule/' + user.uid + '/' + pet.petId]"
+    >
       Add Appointment
     </ion-button>
 
-    <ion-button class="appointment-buttons" [routerLink]="['/appointments/' + user.uid + '/' + pet.petId + '/' + 0]">
+    <ion-button
+      class="appointment-buttons"
+      [routerLink]="['/appointments/' + user.uid + '/' + pet.petId + '/' + 0]"
+    >
       AntiRabies Appointments
     </ion-button>
 
-    <ion-button class="appointment-buttons" [routerLink]="['/appointments/' + user.uid + '/' + pet.petId + '/' + 1]">
+    <ion-button
+      class="appointment-buttons"
+      [routerLink]="['/appointments/' + user.uid + '/' + pet.petId + '/' + 1]"
+    >
       Deworming Appointments
     </ion-button>
 
-    <ion-button class="appointment-buttons" [routerLink]="['/appointments/' + user.uid + '/' + pet.petId + '/' + 2]">
+    <ion-button
+      class="appointment-buttons"
+      [routerLink]="['/appointments/' + user.uid + '/' + pet.petId + '/' + 2]"
+    >
       Kennel Cough Appointments
     </ion-button>
 
-    <ion-button class="appointment-buttons" [routerLink]="['/appointments/' + user.uid + '/' + pet.petId + '/' + 3]">
+    <ion-button
+      class="appointment-buttons"
+      [routerLink]="['/appointments/' + user.uid + '/' + pet.petId + '/' + 3]"
+    >
       Tick and Flea / Heartworm Preventative
     </ion-button>
 
-    <ion-button class="appointment-buttons">Medical History</ion-button>
+    <ion-button class="appointment-buttons" (click)="medHistory()">Medical History</ion-button>
   </div>
 </ion-content>

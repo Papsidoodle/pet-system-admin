@@ -8,6 +8,6 @@ export interface PetsAppointment {
   vetName?: string;
   weight?: number;
   brandImg?: string;
-  petId?: number;
+  petId?: string;
   appointmentId?: string;
 }
