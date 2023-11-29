@@ -11,3 +11,11 @@ export interface PetsAppointment {
   petId?: string;
   appointmentId?: string;
 }
+
+export interface PetMedicalHistory {
+  medicalHistoryDate?: any;
+  medicalHistory?: string;
+  doctorsNote?: string;
+  petId?: string;
+  medicalHistoryId?: string;
+}

@@ -1,0 +1,87 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="#"></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="edit">Edit Medical History</ion-title>
+    <ion-title *ngIf="edit === false">Add Medical History</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <form
+      (ngSubmit)="addMedicalHistory()"
+      [formGroup]="medicalHistoryInfo"
+      *ngIf="edit === false"
+    >
+      <ion-item lines="none">
+        <ion-datetime
+          formControlName="medicalHistoryDate"
+          label="Appointment Date"
+          labelPlacement="floating"
+          [(ngModel)]="currentDate"
+        ></ion-datetime>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-input
+          formControlName="medicalHistory"
+          label="Medical History"
+          labelPlacement="floating"
+        ></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-input
+          formControlName="doctorsNote"
+          label="Doctors Note"
+          labelPlacement="floating"
+        ></ion-input>
+      </ion-item>
+      <ion-button
+        type="submit"
+        [disabled]="!medicalHistoryInfo.valid"
+        shape="round"
+      >
+        <span>Add Medical History</span>
+      </ion-button>
+    </form>
+
+    <form
+      (ngSubmit)="updateMedicalHistory()"
+      [formGroup]="medicalHistoryInfo"
+      *ngIf="edit === true"
+    >
+    <ion-item lines="none">
+      <ion-datetime
+        formControlName="medicalHistoryDate"
+        label="Appointment Date"
+        labelPlacement="floating"
+        [(ngModel)]="currentDate"
+      ></ion-datetime>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-input
+        formControlName="medicalHistory"
+        label="Medical History"
+        labelPlacement="floating"
+      ></ion-input>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-input
+        formControlName="doctorsNote"
+        label="Doctors Note"
+        labelPlacement="floating"
+      ></ion-input>
+    </ion-item>
+    
+
+      <ion-button
+        type="submit"
+        [disabled]="!medicalHistoryInfo.valid"
+        shape="round"
+      >
+        <span>Edit MedicalHistory</span>
+      </ion-button>
+    </form>
+  </div>
+</ion-content>

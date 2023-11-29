@@ -189,6 +189,20 @@ const routes: Routes = [
     path: 'appointments/:uid/:petId/:appointmentType',
     loadChildren: () => import('./pages/appointments/appointments.module').then( m => m.AppointmentsPageModule)
   },
+  {
+    path: 'pet-add-medical-history/:uid/:petId',
+    loadChildren: () => import('./pages/pet-add-medical-history/pet-add-medical-history.module').then( m => m.PetAddMedicalHistoryPageModule)
+  },
+  {
+    path: 'pet-add-medical-history/:uid/:petId/:medicalHistoryId',
+    loadChildren: () => import('./pages/pet-add-medical-history/pet-add-medical-history.module').then( m => m.PetAddMedicalHistoryPageModule)
+  },
+  {
+    path: 'pet-view-medical-history/:uid/:petId/:medicalHistoryId',
+    loadChildren: () => import('./pages/pet-view-medical-history/pet-view-medical-history.module').then( m => m.PetViewMedicalHistoryPageModule)
+  },
+
+
 ];
 
 @NgModule({

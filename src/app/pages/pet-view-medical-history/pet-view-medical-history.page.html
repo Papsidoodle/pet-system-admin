@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="#"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Medical History</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <table>
+      <tr>
+        <th>Medical History</th>
+        <th>Date</th>
+      </tr>
+      <tr>
+        <td>{{medicalHistories.medicalHistory}}</td>
+        <td>{{medicalHistories.medicalHistoryDate}}</td>
+      </tr>
+      <tr>
+        <th colspan="2">Doctor's Note</th>
+      </tr>
+      <tr style="height: 75vh;">
+        <td colspan="2" style="vertical-align: text-top;">
+          <div style="width: 100%;">
+            {{medicalHistories.doctorsNote}}
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</ion-content>

@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PetsInfo } from 'src/app/models/pets';
-import { PetsAppointment } from 'src/app/models/pets-appointment';
+import { PetMedicalHistory, PetsAppointment } from 'src/app/models/pets-appointment';
 import { PetsInfoService } from 'src/app/services/pet/pets/pets-info.service';
 import { User } from 'src/app/services/user/users';
 import { UsersService } from 'src/app/services/user/users.service';
 import { AlertController, LoadingController, ToastController } from '@ionic/angular';
 import { ScheduleService } from 'src/app/services/pet/schedule/schedule.service';
+import { MedicalHistoryService } from 'src/app/services/pet/medical-history/medical-history.service';
 
 function padTo2Digits(num) {
   return num.toString().padStart(2, '0');
@@ -25,6 +26,7 @@ const appointmentTypes = [
   'Deworming Schedule',
   'Kennel Cough Schedule',
   'Tick and Flea / Heartworm Preventative Schedule',
+  '5in1 / 6in1 / 8in1',
 ];
 
 @Component({
@@ -44,6 +46,9 @@ export class OwnersPetPage implements OnInit {
   pets: Subscription;
   petSub: Subscription;
 
+  medicalHistories: PetMedicalHistory[];
+  medHistorySub: Subscription; 
+
   // public petAppointments: PetsAppointment[];
 
   default = 'assets/palceholder.png';
@@ -57,6 +62,7 @@ export class OwnersPetPage implements OnInit {
     private userService: UsersService,
     private petsService: PetsInfoService,
     private scheduleService: ScheduleService,
+    private medService: MedicalHistoryService,
     private actRoute: ActivatedRoute,
     private petService: PetsInfoService,
     private router: Router,
@@ -84,11 +90,18 @@ export class OwnersPetPage implements OnInit {
       .subscribe((schedules: any) => {
         const formattedSchedule = schedules?.map((data) => {
           data.appointmentDate = formatDate(data.appointmentDate.toDate());
-          console.log(data.appointmentDate);
           return data;
         });
+        console.log(formattedSchedule);
         this.apps = formattedSchedule;
       });
+
+    this.medHistorySub = this.medService.getMedicalHistoryByPetId(uid,petId).subscribe((medicalHistory) => {
+      medicalHistory.forEach((data) => {
+        data.medicalHistoryDate = formatDate(data.medicalHistoryDate.toDate());
+        this.medicalHistories = medicalHistory
+    })
+    })
     this.pets = this.petService.getPetInfo(uid, petId).subscribe((pet) => {
       this.pet = pet;
     });
@@ -96,6 +109,11 @@ export class OwnersPetPage implements OnInit {
 
   goToAppointment(event: any) {
     const route = `schedule/${this.user.uid}/${this.pet[0].petId}/${event.target.value}`
+    this.router.navigate([route]);
+  }
+
+  goToMedicalHistory(event:any) {
+    const route = `/pet-view-medical-history/${this.user.uid}/${this.pet[0].petId}/${event.target.value}`
     this.router.navigate([route]);
   }
 

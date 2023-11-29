@@ -31,6 +31,7 @@ export class ScheduleService {
       new Date(appointmentInfo.appointmentDate)
     );
     const ref = doc(col);
+
     const schedId = { ...appointmentInfo, appointmentId: ref.id };
     return from(setDoc(ref, schedId));
   }
@@ -100,8 +101,24 @@ export class ScheduleService {
     );
 
     const petSchedules = collectionData(queriedSchedule).pipe(
-      map((schedule) => {
-        return schedule as PetsAppointment[];
+      map((appointments) => {
+        const highestDates: PetsAppointment[] = [];
+
+        appointments.forEach((appointment) => {
+          const { appointmentType, appointmentDate } = appointment;
+          if (
+            highestDates[appointmentType] == null ||
+            appointmentDate.toDate() <
+              highestDates[appointmentType].appointmentDate.toDate()
+          ) {
+			if(appointmentType === 3){
+				console.log({appointmentType:appointmentType,appointmentDate:appointmentDate.toDate()});
+			}
+			highestDates[appointmentType] = appointment;
+          }
+        });
+		var finalSchedules = highestDates.filter(value => Object.keys(value).length !== 0);
+		return finalSchedules;
       })
     );
     return petSchedules;
@@ -109,6 +126,7 @@ export class ScheduleService {
   // query data by petId and appointmentType
   getSchedulesByAppType(
     uid: string,
+	petId: string,
     appointmentType: number
   ): Observable<PetsAppointment[] | any> {
     const schedules = collection(
@@ -118,6 +136,7 @@ export class ScheduleService {
     const currentDate = new Date();
     const queriedSchedule = query(
       schedules,
+	  where('petId', '==', petId),
       where('appointmentType', '==', appointmentType),
       where('appointmentDate', '<', currentDate)
     );

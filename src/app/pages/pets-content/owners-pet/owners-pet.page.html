@@ -93,6 +93,25 @@
       </ion-list>
     </ion-item>
 
+    <ion-item>
+      <ion-list class="">
+        <ion-select
+          id="select"
+          aria-label="Medical History"
+          label="Medical History"
+          labelPlacement="stacked"
+          (ionChange)="goToMedicalHistory($event)"
+        >
+          <ion-select-option
+            *ngFor="let medicalHistory of medicalHistories"
+            value="{{medicalHistory.medicalHistoryId}}"
+          >
+          {{medicalHistory.medicalHistoryDate}}
+          </ion-select-option>
+        </ion-select>
+      </ion-list>
+    </ion-item>
+    
     <ion-button
       class="appointment-buttons"
       [routerLink]="['/schedule/' + user.uid + '/' + pet.petId]"
@@ -100,6 +119,12 @@
       Add Appointment
     </ion-button>
 
+    <ion-button
+      class="appointment-buttons"
+      [routerLink]="['/pet-add-medical-history/' + user.uid + '/' + pet.petId]"
+    >
+      Add Medical History
+    </ion-button>
     <ion-button
       class="appointment-buttons"
       [routerLink]="['/appointments/' + user.uid + '/' + pet.petId + '/' + 0]"
@@ -128,6 +153,11 @@
       Tick and Flea / Heartworm Preventative
     </ion-button>
 
-    <ion-button class="appointment-buttons" (click)="medHistory()">Medical History</ion-button>
+    <ion-button
+      class="appointment-buttons"
+      [routerLink]="['/appointments/' + user.uid + '/' + pet.petId + '/' + 4]"
+    >
+      5in1 / 6in1 / 8in1
+    </ion-button>
   </div>
 </ion-content>

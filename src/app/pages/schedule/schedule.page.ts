@@ -5,7 +5,6 @@ import { PetsAppointment } from 'src/app/models/pets-appointment';
 import { ScheduleService } from 'src/app/services/pet/schedule/schedule.service';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { AlertController, LoadingController } from '@ionic/angular';
 
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
@@ -130,6 +129,7 @@ export class SchedulePage implements OnInit {
     this.scheduleService
       .getSchedulesByAppId(this.userId, appointmentId)
       .subscribe((scheduleInfo) => {
+        console.log(scheduleInfo);
         loading.dismiss();
         this.currentDate = scheduleInfo.appointmentDate.toDate().toISOString();
         this.appointmentTy = scheduleInfo.appointmentType;
