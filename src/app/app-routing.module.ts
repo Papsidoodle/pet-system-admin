@@ -167,42 +167,67 @@ const routes: Routes = [
   },
   {
     path: 'add-pet-modal',
-    loadChildren: () => import('./pages/add-pet-modal/add-pet-modal.module').then( m => m.AddPetModalPageModule)
+    loadChildren: () =>
+      import('./pages/add-pet-modal/add-pet-modal.module').then(
+        (m) => m.AddPetModalPageModule
+      ),
   },
   {
     path: 'owners-pet/:uid/:petId',
-    loadChildren: () => import('./pages/pets-content/owners-pet/owners-pet.module').then( m => m.OwnersPetPageModule)
+    loadChildren: () =>
+      import('./pages/pets-content/owners-pet/owners-pet.module').then(
+        (m) => m.OwnersPetPageModule
+      ),
   },
   {
     path: 'owners-pet-update/:uid/:petId',
-    loadChildren: () => import('./pages/pets-content/owners-pet-update/owners-pet-update.module').then( m => m.OwnersPetUpdatePageModule)
+    loadChildren: () =>
+      import(
+        './pages/pets-content/owners-pet-update/owners-pet-update.module'
+      ).then((m) => m.OwnersPetUpdatePageModule),
   },
   {
     path: 'schedule/:uid/:petId',
-    loadChildren: () => import('./pages/schedule/schedule.module').then( m => m.SchedulePageModule)
+    loadChildren: () =>
+      import('./pages/schedule/schedule.module').then(
+        (m) => m.SchedulePageModule
+      ),
   },
   {
     path: 'schedule/:uid/:petId/:appointmentId',
-    loadChildren: () => import('./pages/schedule/schedule.module').then( m => m.SchedulePageModule)
+    loadChildren: () =>
+      import('./pages/schedule/schedule.module').then(
+        (m) => m.SchedulePageModule
+      ),
   },
   {
     path: 'appointments/:uid/:petId/:appointmentType',
-    loadChildren: () => import('./pages/appointments/appointments.module').then( m => m.AppointmentsPageModule)
+    loadChildren: () =>
+      import('./pages/appointments/appointments.module').then(
+        (m) => m.AppointmentsPageModule
+      ),
   },
   {
     path: 'pet-add-medical-history/:uid/:petId',
-    loadChildren: () => import('./pages/pet-add-medical-history/pet-add-medical-history.module').then( m => m.PetAddMedicalHistoryPageModule)
+    loadChildren: () =>
+      import(
+        './pages/pet-add-medical-history/pet-add-medical-history.module'
+      ).then((m) => m.PetAddMedicalHistoryPageModule),
   },
   {
     path: 'pet-add-medical-history/:uid/:petId/:medicalHistoryId',
-    loadChildren: () => import('./pages/pet-add-medical-history/pet-add-medical-history.module').then( m => m.PetAddMedicalHistoryPageModule)
+    loadChildren: () =>
+      import(
+        './pages/pet-add-medical-history/pet-add-medical-history.module'
+      ).then((m) => m.PetAddMedicalHistoryPageModule),
   },
   {
     path: 'pet-view-medical-history/:uid/:petId/:medicalHistoryId',
-    loadChildren: () => import('./pages/pet-view-medical-history/pet-view-medical-history.module').then( m => m.PetViewMedicalHistoryPageModule)
+    loadChildren: () =>
+      import(
+        './pages/pet-view-medical-history/pet-view-medical-history.module'
+      ).then((m) => m.PetViewMedicalHistoryPageModule),
   },
-
-
 ];
 
 @NgModule({

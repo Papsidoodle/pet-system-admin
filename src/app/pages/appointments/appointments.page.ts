@@ -23,7 +23,7 @@ const appointmentTypes = [
   'Deworming Schedule',
   'Kennel Cough Schedule',
   'Tick and Flea / Heartworm Preventative Schedule',
-  '5in1 / 6in1 / 8in1'
+  '5in1 / 6in1 / 8in1',
 ];
 
 @Component({
@@ -35,7 +35,7 @@ export class AppointmentsPage implements OnInit {
   apps: PetsAppointment[];
   appointments: Subscription;
   userId: string;
-  petId:string;
+  petId: string;
   header: string = '';
 
   constructor(

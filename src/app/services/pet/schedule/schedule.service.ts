@@ -31,7 +31,6 @@ export class ScheduleService {
       new Date(appointmentInfo.appointmentDate)
     );
     const ref = doc(col);
-
     const schedId = { ...appointmentInfo, appointmentId: ref.id };
     return from(setDoc(ref, schedId));
   }

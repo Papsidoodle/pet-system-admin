@@ -29,6 +29,24 @@ const appointmentTypes = [
   '5in1 / 6in1 / 8in1',
 ];
 
+function padTo2Digits(num) {
+  return num.toString().padStart(2, '0');
+}
+
+export function formatDate(date) {
+  return [
+    padTo2Digits(date.getDate()),
+    padTo2Digits(date.getMonth() + 1),
+    date.getFullYear(),
+  ].join('/');
+}
+const appointmentTypes = [
+  'AntiRabies Schedule',
+  'Deworming Schedule',
+  'Kennel Cough Schedule',
+  'Tick and Flea / Heartworm Preventative Schedule',
+];
+
 @Component({
   selector: 'app-owners-pet',
   templateUrl: './owners-pet.page.html',
@@ -62,7 +80,10 @@ export class OwnersPetPage implements OnInit {
     private userService: UsersService,
     private petsService: PetsInfoService,
     private scheduleService: ScheduleService,
+<<<<<<< HEAD
     private medService: MedicalHistoryService,
+=======
+>>>>>>> cd3d3d3ec7641c1757ad8990471ca708dcbe2ebb
     private actRoute: ActivatedRoute,
     private petService: PetsInfoService,
     private router: Router,
