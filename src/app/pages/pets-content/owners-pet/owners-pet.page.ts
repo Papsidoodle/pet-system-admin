@@ -100,7 +100,7 @@ export class OwnersPetPage implements OnInit {
       medicalHistory.forEach((data) => {
         data.medicalHistoryDate = formatDate(data.medicalHistoryDate.toDate());
         this.medicalHistories = medicalHistory
-    })
+      })
     })
     this.pets = this.petService.getPetInfo(uid, petId).subscribe((pet) => {
       this.pet = pet;

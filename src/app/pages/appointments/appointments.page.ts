@@ -1,17 +1,15 @@
-import { map } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Timestamp } from 'firebase/firestore';
 import { Subscription } from 'rxjs';
 import { PetsAppointment } from 'src/app/models/pets-appointment';
 
 import { ScheduleService } from 'src/app/services/pet/schedule/schedule.service';
 
-function padTo2Digits(num) {
+function padTo2Digits(num: number) {
   return num.toString().padStart(2, '0');
 }
 
-export function formatDate(date) {
+export function formatDate(date: Date) {
   return [
     padTo2Digits(date.getDate()),
     padTo2Digits(date.getMonth() + 1),
@@ -41,7 +39,7 @@ export class AppointmentsPage implements OnInit {
   constructor(
     private actRoute: ActivatedRoute,
     private sched: ScheduleService
-  ) {}
+  ) { }
 
   ngOnInit() {
     const userId = this.actRoute.snapshot.paramMap.get('uid');
@@ -53,16 +51,10 @@ export class AppointmentsPage implements OnInit {
 
     this.header = appointmentTypes[appType];
 
-    // this.appointments = this.sched
-    //   .getSchedulesByPetId(userId, petId)
-    //   .subscribe((schedules) => {
-    //     this.apps = schedules;
-    // });
-
     this.appointments = this.sched
       .getSchedulesByAppType(userId, petId, Number(appType))
       .subscribe((appointment) => {
-        const formattedDates = appointment.map((data) => {
+        appointment.map((data:PetsAppointment) => {
           data.appointmentDate = formatDate(data.appointmentDate.toDate());
         });
         this.apps = appointment;
