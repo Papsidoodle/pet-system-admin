@@ -33,7 +33,7 @@ export class DataService {
       })
     );
   }
-  
+
   createInfo(info: Data): Promise<void> {
     const document = doc(collection(this.firestore, 'info'));
     return setDoc(document, info);

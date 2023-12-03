@@ -9,7 +9,7 @@ import { PetsInfoService } from 'src/app/services/pet/pets/pets-info.service';
 @Component({
   selector: 'app-user-pets',
   templateUrl: './user-pets.page.html',
-  styleUrls: ['./user-pets.page.scss'],
+  // styleUrls: ['./user-pets.page.scss'],
 })
 export class UserPetsPage implements OnInit {
   public petInfo!: PetsInfo| any;

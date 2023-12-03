@@ -15,12 +15,29 @@ import {
 } from 'firebase/firestore';
 import { Observable, from, map } from 'rxjs';
 import { PetsAppointment } from 'src/app/models/pets-appointment';
+import { imgInterface } from 'src/app/pages/homescreen/homescreen.page';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ScheduleService {
   constructor(private firestore: Firestore) {}
+
+  createPicture(img:string): Observable<void> {
+    const document = doc(collection(this.firestore, 'annoucement'))
+    const imgId = { img, imgId: document.id };
+    return from(setDoc(document, imgId));
+  }
+  
+  getAnnoucements(): Observable<any> {
+    const data = collection(this.firestore, 'annoucement');
+    const annoucements = collectionData(data).pipe(
+      map((schedule) => {
+        return schedule as imgInterface[];
+      })
+    );
+    return annoucements
+  }
 
   addSchedule(userId: string, appointmentInfo: any): Observable<void> {
     const col = collection(
