@@ -12,7 +12,7 @@ import { UsersService } from 'src/app/services/user/users.service';
 
 export interface imgInterface {
   img: string;
-  id: string;
+  imgId: string;
 }
 
 @Component({
@@ -48,24 +48,17 @@ export class HomescreenPage implements OnInit {
     });
   }
 
-  public servicesSlide: any[] = [
-    { img: '/assets/Services/service1.png' },
-    { img: '/assets/Services/service2.png' },
-  ];
-
   ngOnInit() {
     this.pictureSubscription = this.scheduleService
       .getAnnoucements()
       .subscribe((annoucements) => {
         console.log(annoucements);
         this.pictures = annoucements;
-        this.pictures.push({ img: '/assets/Services/service1.png', id: '1' });
-        this.pictures.push({ img: '/assets/Services/service1.png', id: '2' });
+        this.pictures.push({ img: '/assets/Services/service1.png', imgId: '1' });
+        this.pictures.push({ img: '/assets/Services/service1.png', imgId: '2' });
         const images = this.pictures.map((picture) => {
           return { img: picture.img };
         });
-        this.servicesSlide.push(...images);
-        console.log(this.servicesSlide);
       });
   }
 
@@ -163,7 +156,9 @@ export class HomescreenPage implements OnInit {
     this.pictureFG.reset();
     return this.modal.dismiss(null, 'cancel');
   }
-  async deleteAnnoucement() {
+  
+  async deleteAnnoucement(id:string) {
+    console.log(id);
     const alert = await this.alertCtrl.create({
       header: 'Delete',
       message: 'Are you sure you want to delete the picture?',
@@ -176,7 +171,7 @@ export class HomescreenPage implements OnInit {
           text: 'Yes',
           role: 'confirm',
           handler: () => {
-            this.pictures = [];
+            this.scheduleService.deleteAnnouncment(id).then((res) => this.router.navigate(['/']));
           },
         },
       ],

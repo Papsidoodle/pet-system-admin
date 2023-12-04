@@ -60,6 +60,19 @@ ion-toolbar {
         position: relative;
     }
 
+    .swiper-container .deleteIcon {
+        position: absolute;
+        right: 10px;
+        top:10px;
+        width:20px;
+        height: 20px;
+        color:#ef0006;
+        background-color: #fff;
+        border-radius: 5px;
+        padding:2px;
+        cursor: pointer;
+    }
+
     .service_slide img {
         border: 1px solid #aeaeae;
         border-radius: 20px;

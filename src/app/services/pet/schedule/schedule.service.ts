@@ -12,6 +12,7 @@ import {
   setDoc,
   where,
   Timestamp,
+  deleteDoc,
 } from 'firebase/firestore';
 import { Observable, from, map } from 'rxjs';
 import { PetsAppointment } from 'src/app/models/pets-appointment';
@@ -24,7 +25,7 @@ export class ScheduleService {
   constructor(private firestore: Firestore) {}
 
   createPicture(img:string): Observable<void> {
-    const document = doc(collection(this.firestore, 'annoucement'))
+    const document = doc(collection(this.firestore, 'announcement'))
     const imgId = { img, imgId: document.id };
     return from(setDoc(document, imgId));
   }
@@ -33,10 +34,17 @@ export class ScheduleService {
     const data = collection(this.firestore, 'announcement');
     const annoucements = collectionData(data).pipe(
       map((schedule) => {
+        console.log(schedule)
         return schedule as imgInterface[];
       })
     );
     return annoucements
+  }
+
+  deleteAnnouncment(id: string): Promise<void> {
+    console.log(id);
+    const document = doc(this.firestore, 'announcement', id);
+    return deleteDoc(document);
   }
 
   addSchedule(userId: string, appointmentInfo: any): Observable<void> {
