@@ -18,7 +18,7 @@
   <div class="container">
     <div class="slides">
       <swiper-container class="swiper-container" pagination="true" pagination-clickable="true" space-between="30"
-        [loop]="true" centered-slides="true" autoplay-delay="2000" autoplay-disable-on-interaction="false">
+        [loop]="true" centered-slides="true" autoplay-delay="2000" autoplay-disable-on-interaction="false" keyboard="true">
         <swiper-slide *ngFor="let service of pictures" class="service_slide">
           <img src="{{service.img}}" alt="" />
         </swiper-slide>
@@ -26,9 +26,13 @@
       <ion-button id="addAnnoucement" class="btn" expand="block" fill="outline" shape="round">
         Add Picture
       </ion-button>
+      <ion-button (click)="deleteAnnoucement()" class="btn" expand="block" fill="outline" shape="round" color="danger">
+        Delete Picture
+      </ion-button>
     </div>
 
     <div class="users">
+      <ion-searchbar (ionInput)="handleInput($event)"></ion-searchbar>
       <h2>List of Owners</h2>
 
       <ion-list *ngFor="let user of user | async">

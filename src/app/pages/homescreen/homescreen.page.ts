@@ -4,13 +4,11 @@ import { Router } from '@angular/router';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { AlertController, IonModal, LoadingController } from '@ionic/angular';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, map } from 'rxjs';
 import { DataService } from 'src/app/services/data/data.service';
 import { ScheduleService } from 'src/app/services/pet/schedule/schedule.service';
 import { User } from 'src/app/services/user/users';
 import { UsersService } from 'src/app/services/user/users.service';
-
-
 
 export interface imgInterface {
   img: string;
@@ -33,7 +31,7 @@ export class HomescreenPage implements OnInit {
   public pictureSubscription: Subscription;
 
   public img: string = '';
-  default = 'assets/palceholder.png'
+  default = 'assets/palceholder.png';
 
   constructor(
     private userService: UsersService,
@@ -47,7 +45,7 @@ export class HomescreenPage implements OnInit {
 
     this.pictureFG = this.fb.group({
       img: ['', [Validators.required]],
-    })
+    });
   }
 
   public servicesSlide: any[] = [
@@ -56,14 +54,13 @@ export class HomescreenPage implements OnInit {
   ];
 
   ngOnInit() {
-
     this.pictureSubscription = this.scheduleService
       .getAnnoucements()
       .subscribe((annoucements) => {
         console.log(annoucements);
         this.pictures = annoucements;
-        this.pictures.push({img: '/assets/Services/service1.png', id: '1'});
-        this.pictures.push({img: '/assets/Services/service1.png', id: '2'});
+        this.pictures.push({ img: '/assets/Services/service1.png', id: '1' });
+        this.pictures.push({ img: '/assets/Services/service1.png', id: '2' });
         const images = this.pictures.map((picture) => {
           return { img: picture.img };
         });
@@ -72,17 +69,15 @@ export class HomescreenPage implements OnInit {
       });
   }
 
-
   async addAnnoucement() {
     console.log('test');
     const imgName = new Date().getTime() + '.jpg';
 
     // storage for the image
-    const filePath = 'annoucement/' + imgName;
+    const filePath = 'announcement/' + imgName;
     const storage = getStorage();
-    const storageRef = ref(storage, filePath)
-    const uploadTask = uploadBytes(storageRef, this.pictureFG.value.img)
-
+    const storageRef = ref(storage, filePath);
+    const uploadTask = uploadBytes(storageRef, this.pictureFG.value.img);
 
     const loading = await this.loadingCtrl.create();
 
@@ -102,12 +97,9 @@ export class HomescreenPage implements OnInit {
             uploadTask
               .then(async () => {
                 try {
-
                   const downloadURL = await getDownloadURL(storageRef);
 
-                  this.scheduleService
-                  .createPicture(downloadURL)
-                  .subscribe(
+                  this.scheduleService.createPicture(downloadURL).subscribe(
                     async () => {
                       setTimeout(() => {
                         loading.dismiss();
@@ -123,22 +115,23 @@ export class HomescreenPage implements OnInit {
                       const alert = this.alertCtrl.create({
                         header: "Can't Create Annoucement!",
                         message: 'An error occured while making annoucement.',
-                          buttons: [
-                            {
-                              text: 'Ok',
-                            },
-                          ],
-                          cssClass: 'custom-alert',
+                        buttons: [
+                          {
+                            text: 'Ok',
+                          },
+                        ],
+                        cssClass: 'custom-alert',
                       });
                       (await alert).present();
                     }
                   );
                 } catch (error) {
-                  console.log('Download url error: ', error)
-                };
-              }).catch((error) => {
-                console.log('Image upload error: ', error)
+                  console.log('Download url error: ', error);
+                }
               })
+              .catch((error) => {
+                console.log('Image upload error: ', error);
+              });
           },
         },
       ],
@@ -154,19 +147,14 @@ export class HomescreenPage implements OnInit {
         saveToGallery: false,
         resultType: CameraResultType.DataUrl,
         source: CameraSource.Prompt,
-        correctOrientation: true
+        correctOrientation: true,
       });
 
-
-
-      const response = await fetch(image.dataUrl)
+      const response = await fetch(image.dataUrl);
       const blob = await response.blob();
 
       this.img = URL.createObjectURL(blob);
       this.pictureFG.patchValue({ img: blob });
-
-
-
     } catch (error) {
       console.log(error);
     }
@@ -174,5 +162,46 @@ export class HomescreenPage implements OnInit {
   closeModal() {
     this.pictureFG.reset();
     return this.modal.dismiss(null, 'cancel');
+  }
+  async deleteAnnoucement() {
+    const alert = await this.alertCtrl.create({
+      header: 'Delete',
+      message: 'Are you sure you want to delete the picture?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+        },
+        {
+          text: 'Yes',
+          role: 'confirm',
+          handler: () => {
+            this.pictures = [];
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  handleInput(event) {
+    const query = event.target.value.toLowerCase();
+
+    this.user = this.user.pipe(
+      map((users) =>
+        users.filter((user) => {
+          const fullName =
+            [...user.firstname].join('').toLowerCase() +
+            [...user.middlename].join('').toLowerCase() +
+            [...user.lastname].join('').toLowerCase();
+          return fullName.indexOf(query) > -1;
+        })
+      )
+    );
+
+    if (!query) {
+      this.user = this.userService.getUsersInfo();
+    }
   }
 }

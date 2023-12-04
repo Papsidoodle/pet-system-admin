@@ -11,7 +11,7 @@
 
 <ion-content>
   <div class="container">
-    <div class="slides">
+    <!-- <div class="slides">
       <swiper-container
         class="swiper-container"
         pagination="true"
@@ -27,7 +27,7 @@
           <img src="{{service.img}}" alt="">
         </swiper-slide> 
       </swiper-container>
-    </div>
+    </div> -->
   </div>
 
   <div class="segment-bg">
@@ -57,14 +57,20 @@
     <div *ngIf="selectedSegment === '1'">
 
       <div class="stickybar">
-        <div class="input-wrapper">
+        <!-- <div class="input-wrapper">
           <input type="text" placeholder="Search..." name="text" class="input" [(ngModel)]="search" (input)="onDogSearch()" autocomplete="off">
+        </div> -->
+
+        <div class="input-wrapper">
+          <ion-searchbar class="bar" [debounce]="300" (ionInput)="handleDogSearch($event)">
+          </ion-searchbar>
         </div>
+
       </div>
 
-        <!-- Display no result -->
-      <div *ngIf="!(searchdog | async)?.length && search.trim()">
-        <p>No results found</p>
+      <!-- Display no result -->
+      <div *ngIf="result">
+        <p>{{ result }}</p>
       </div>
 
       <!-- Display if dog exist -->
@@ -92,15 +98,17 @@
     <div *ngIf="selectedSegment === '2'">
 
       <div class="stickybar">
-        <div class="input-wrapper">
+        <!-- <div class="input-wrapper">
           <input type="text" placeholder="Search..." name="text" class="input" [(ngModel)]="search" (input)="onCatSearch()" autocomplete="off">
+        </div> -->
+
+        <div class="input-wrapper">
+          <ion-searchbar class="bar" (ionInput)="handleCatSearch($event)">
+          </ion-searchbar>
         </div>
       </div>
 
-      <!-- Display no result -->
-      <div *ngIf="!(searchcat | async)?.length && search.trim()">
-        <p>No results found</p>
-      </div>
+      
 
       <!-- Display if cat exist -->
       <div *ngIf="searchcat && (searchcat | async)?.length > 0">

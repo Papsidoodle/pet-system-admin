@@ -5,9 +5,9 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { DogsInfoService } from 'src/app/services/pet/dogs/dogs-info.service';
+import { DogsInfoService } from 'dogs/dogs-info.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DogInfo } from 'src/app/services/pet/dogs/dog';
+import { DogInfo } from 'dogs/dog';
 import {
   FormGroup,
   FormControl,
@@ -20,7 +20,7 @@ import {
   ref,
   uploadBytesResumable,
   getDownloadURL,
-  UploadTask
+  UploadTask,
 } from 'firebase/storage';
 import { AnimationOptions } from 'ngx-lottie';
 import { AlertController, LoadingController } from '@ionic/angular';
@@ -32,7 +32,6 @@ import Swiper from 'swiper';
   styleUrls: ['./dog-update.page.scss'],
 })
 export class DogUpdatePage implements OnInit {
-
   public petInfo: DogInfo;
   updatepetInfoForm: FormGroup;
   formIsEdited: boolean = false;
@@ -40,13 +39,13 @@ export class DogUpdatePage implements OnInit {
   sub1: Subscription;
   sub2: Subscription;
 
-  haircut:string[] = [];
-  nail:string[] = [];
-  ear:string[] = [];
-  bath:string[] = [];
-  puppic:string[] = [];
-  adpic:string[]=[];
-  senpic:string[]=[];
+  haircut: string[] = [];
+  nail: string[] = [];
+  ear: string[] = [];
+  bath: string[] = [];
+  puppic: string[] = [];
+  adpic: string[] = [];
+  senpic: string[] = [];
 
   @ViewChild('updateForm') updateForm: FormGroupDirective;
 
@@ -89,12 +88,12 @@ export class DogUpdatePage implements OnInit {
           nail: new FormControl(this.petInfo.nail),
           ear: new FormControl(this.petInfo.ear),
           bath: new FormControl(this.petInfo.bath),
-          pupstage:new FormControl(this.petInfo.pupstage),
-          adstage:new FormControl(this.petInfo.adstage),
-          senstage:new FormControl(this.petInfo.senstage),
-          puppic:new FormControl(this.petInfo.puppic),
-          adpic:new FormControl(this.petInfo.adpic),
-          senpic:new FormControl(this.petInfo.senpic),
+          pupstage: new FormControl(this.petInfo.pupstage),
+          adstage: new FormControl(this.petInfo.adstage),
+          senstage: new FormControl(this.petInfo.senstage),
+          puppic: new FormControl(this.petInfo.puppic),
+          adpic: new FormControl(this.petInfo.adpic),
+          senpic: new FormControl(this.petInfo.senpic),
         });
 
         this.sub2 = this.updatepetInfoForm.valueChanges.subscribe((values) => {
@@ -216,14 +215,14 @@ export class DogUpdatePage implements OnInit {
     const storage = getStorage();
     const files: FileList = event.target.files;
     const uploadTasks: UploadTask[] = [];
-  
+
     // Loop through the selected files and upload them individually
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const filePath = `doghaircut_photos/${file.name}`;
       const storageRef = ref(storage, filePath);
       const uploadTask = uploadBytesResumable(storageRef, file);
-  
+
       uploadTask.on(
         'state_changed',
         (snapshot) => {
@@ -238,15 +237,15 @@ export class DogUpdatePage implements OnInit {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             this.haircut.push(downloadURL); // Store the download URL in an array
             if (this.haircut.length === event.target.files.length) {
-            this.updatepetInfoForm.patchValue({ haircut: this.haircut });
+              this.updatepetInfoForm.patchValue({ haircut: this.haircut });
             }
           });
         }
       );
-  
+
       uploadTasks.push(uploadTask);
     }
-  
+
     // Once all files are uploaded, you can do additional processing or validation
     Promise.all(uploadTasks.map((task) => task.then())).then(() => {
       console.log('All files uploaded successfully');
@@ -257,14 +256,14 @@ export class DogUpdatePage implements OnInit {
     const storage = getStorage();
     const files: FileList = event.target.files;
     const uploadTasks: UploadTask[] = [];
-  
+
     // Loop through the selected files and upload them individually
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const filePath = `dognail_photos/${file.name}`;
       const storageRef = ref(storage, filePath);
       const uploadTask = uploadBytesResumable(storageRef, file);
-  
+
       uploadTask.on(
         'state_changed',
         (snapshot) => {
@@ -280,14 +279,14 @@ export class DogUpdatePage implements OnInit {
             this.nail.push(downloadURL); // Store the download URL in an array
             if (this.nail.length === event.target.files.length) {
               this.updatepetInfoForm.patchValue({ nail: this.nail });
-              }
+            }
           });
         }
       );
-  
+
       uploadTasks.push(uploadTask);
     }
-  
+
     // Once all files are uploaded, you can do additional processing or validation
     Promise.all(uploadTasks.map((task) => task.then())).then(() => {
       console.log('All files uploaded successfully');
@@ -299,14 +298,14 @@ export class DogUpdatePage implements OnInit {
     const storage = getStorage();
     const files: FileList = event.target.files;
     const uploadTasks: UploadTask[] = [];
-  
+
     // Loop through the selected files and upload them individually
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const filePath = `doghaircut_photos/${file.name}`;
       const storageRef = ref(storage, filePath);
       const uploadTask = uploadBytesResumable(storageRef, file);
-  
+
       uploadTask.on(
         'state_changed',
         (snapshot) => {
@@ -322,14 +321,14 @@ export class DogUpdatePage implements OnInit {
             this.ear.push(downloadURL); // Store the download URL in an array
             if (this.ear.length === event.target.files.length) {
               this.updatepetInfoForm.patchValue({ ear: this.ear });
-              }
+            }
           });
         }
       );
-  
+
       uploadTasks.push(uploadTask);
     }
-  
+
     // Once all files are uploaded, you can do additional processing or validation
     Promise.all(uploadTasks.map((task) => task.then())).then(() => {
       console.log('All files uploaded successfully');
@@ -341,14 +340,14 @@ export class DogUpdatePage implements OnInit {
     const storage = getStorage();
     const files: FileList = event.target.files;
     const uploadTasks: UploadTask[] = [];
-  
+
     // Loop through the selected files and upload them individually
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const filePath = `doghaircut_photos/${file.name}`;
       const storageRef = ref(storage, filePath);
       const uploadTask = uploadBytesResumable(storageRef, file);
-  
+
       uploadTask.on(
         'state_changed',
         (snapshot) => {
@@ -364,15 +363,14 @@ export class DogUpdatePage implements OnInit {
             this.bath.push(downloadURL); // Store the download URL in an array
             if (this.bath.length === event.target.files.length) {
               this.updatepetInfoForm.patchValue({ bath: this.bath });
-              }
-
+            }
           });
         }
       );
-  
+
       uploadTasks.push(uploadTask);
     }
-  
+
     // Once all files are uploaded, you can do additional processing or validation
     Promise.all(uploadTasks.map((task) => task.then())).then(() => {
       console.log('All files uploaded successfully');
@@ -383,14 +381,14 @@ export class DogUpdatePage implements OnInit {
     const storage = getStorage();
     const files: FileList = event.target.files;
     const uploadTasks: UploadTask[] = [];
-  
+
     // Loop through the selected files and upload them individually
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const filePath = `dogfood_photos/${file.name}`;
       const storageRef = ref(storage, filePath);
       const uploadTask = uploadBytesResumable(storageRef, file);
-  
+
       uploadTask.on(
         'state_changed',
         (snapshot) => {
@@ -406,15 +404,14 @@ export class DogUpdatePage implements OnInit {
             this.puppic.push(downloadURL); // Store the download URL in an array
             if (this.puppic.length === event.target.files.length) {
               this.updatepetInfoForm.patchValue({ puppic: this.puppic });
-              }
-
+            }
           });
         }
       );
-  
+
       uploadTasks.push(uploadTask);
     }
-  
+
     // Once all files are uploaded, you can do additional processing or validation
     Promise.all(uploadTasks.map((task) => task.then())).then(() => {
       console.log('All files uploaded successfully');
@@ -425,14 +422,14 @@ export class DogUpdatePage implements OnInit {
     const storage = getStorage();
     const files: FileList = event.target.files;
     const uploadTasks: UploadTask[] = [];
-  
+
     // Loop through the selected files and upload them individually
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const filePath = `dogfood_photos/${file.name}`;
       const storageRef = ref(storage, filePath);
       const uploadTask = uploadBytesResumable(storageRef, file);
-  
+
       uploadTask.on(
         'state_changed',
         (snapshot) => {
@@ -448,34 +445,33 @@ export class DogUpdatePage implements OnInit {
             this.adpic.push(downloadURL); // Store the download URL in an array
             if (this.adpic.length === event.target.files.length) {
               this.updatepetInfoForm.patchValue({ adpic: this.adpic });
-              }
-
+            }
           });
         }
       );
-  
+
       uploadTasks.push(uploadTask);
     }
-  
+
     // Once all files are uploaded, you can do additional processing or validation
     Promise.all(uploadTasks.map((task) => task.then())).then(() => {
       console.log('All files uploaded successfully');
     });
   }
 
-   //selecting multiple adult food photos
-   senselect(event: any) {
+  //selecting multiple adult food photos
+  senselect(event: any) {
     const storage = getStorage();
     const files: FileList = event.target.files;
     const uploadTasks: UploadTask[] = [];
-  
+
     // Loop through the selected files and upload them individually
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const filePath = `dogfood_photos/${file.name}`;
       const storageRef = ref(storage, filePath);
       const uploadTask = uploadBytesResumable(storageRef, file);
-  
+
       uploadTask.on(
         'state_changed',
         (snapshot) => {
@@ -491,19 +487,17 @@ export class DogUpdatePage implements OnInit {
             this.senpic.push(downloadURL); // Store the download URL in an array
             if (this.senpic.length === event.target.files.length) {
               this.updatepetInfoForm.patchValue({ senpic: this.senpic });
-              }
-
+            }
           });
         }
       );
-  
+
       uploadTasks.push(uploadTask);
     }
-  
+
     // Once all files are uploaded, you can do additional processing or validation
     Promise.all(uploadTasks.map((task) => task.then())).then(() => {
       console.log('All files uploaded successfully');
     });
   }
-
 }

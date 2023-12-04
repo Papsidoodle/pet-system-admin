@@ -73,19 +73,20 @@ ion-content {
     }
 
     // search bar
-    .input-wrapper input {
-        background-color: #F0EDD4;
+    .input-wrapper .bar {
+        --background: #F0EDD4;
+        --border-radius: 2rem;
+        --box-shadow: 0 0.4rem #525050;
+        --color: rgb(15, 8, 8);
+        
         border: none;
         padding: 1rem;
         font-size: 1rem;
-        width: 22em;
-        border-radius: 2rem;
-        color: rgb(15, 8, 8);
-        box-shadow: 0 0.4rem #525050;
+        width: 100%;
     
     }
 
-    .input-wrapper input:focus {
+    .input-wrapper .bar {
         outline-color: #eee;
     }
 

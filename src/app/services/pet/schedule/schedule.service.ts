@@ -30,7 +30,7 @@ export class ScheduleService {
   }
   
   getAnnoucements(): Observable<any> {
-    const data = collection(this.firestore, 'annoucement');
+    const data = collection(this.firestore, 'announcement');
     const annoucements = collectionData(data).pipe(
       map((schedule) => {
         return schedule as imgInterface[];

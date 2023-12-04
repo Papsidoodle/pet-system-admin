@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { IonRouterOutlet, MenuController, ModalController } from '@ionic/angular';
+import {
+  IonRouterOutlet,
+  MenuController,
+  ModalController,
+} from '@ionic/angular';
 import { AnimationOptions } from 'ngx-lottie';
-import { Observable } from 'rxjs';
+import { Observable, Subscription, map, of } from 'rxjs';
 import { CatInfo } from 'src/app/services/pet/cats/cat';
 import { CatsInfoService } from 'src/app/services/pet/cats/cats-info.service';
-import { DogInfo } from 'src/app/services/pet/dogs/dog';
-import { DogsInfoService } from 'src/app/services/pet/dogs/dogs-info.service';
+import { DogInfo } from 'dogs/dog';
+import { DogsInfoService } from 'dogs/dogs-info.service';
 import { CatAddPage } from '../pets-content/cats-content/cat-add/cat-add.page';
 import { DogAddPage } from '../pets-content/dogs-content/dog-add/dog-add.page';
 
@@ -15,7 +19,6 @@ import { DogAddPage } from '../pets-content/dogs-content/dog-add/dog-add.page';
   styleUrls: ['./pets-info.page.scss'],
 })
 export class PetsInfoPage implements OnInit {
-
   selectedSegment: string = '1';
   public search: string = '';
   public dogInfo: Observable<DogInfo[]>;
@@ -23,12 +26,16 @@ export class PetsInfoPage implements OnInit {
   public searchdog: Observable<DogInfo[]>;
   public searchcat: Observable<CatInfo[]>;
 
+  dogSubs: Subscription;
+
+  result: string = '';
+
   constructor(
     private menuCtrl: MenuController,
     public modalController: ModalController,
     private routerOutlet: IonRouterOutlet,
     private dogservice: DogsInfoService,
-    private catservice: CatsInfoService,
+    private catservice: CatsInfoService
   ) {
     this.dogInfo = this.dogservice.getDogInfoAlphabetically();
     this.catInfo = this.catservice.getCatInfoAlphabetically();
@@ -80,6 +87,54 @@ export class PetsInfoPage implements OnInit {
     }
   }
 
+  handleDogSearch(event) {
+    const query = event.target.value.toLowerCase();
+
+    this.dogSubs = this.dogInfo.pipe(
+      map((dogs) => 
+        dogs.filter((dog) => {
+          const dogName = 
+            [...dog.name].join('').toLowerCase();
+
+          return dogName.indexOf(query) > -1;
+        })
+      )
+    ).subscribe(filteredDogs => {
+      
+      if (filteredDogs.length === 0) {
+        this.result = 'No results found';
+        console.log("No results found");
+      } else {
+        this.dogInfo = of(filteredDogs);
+      }
+    });
+
+    if(!query) {
+      this.dogInfo = this.dogservice.getDogInfoAlphabetically();
+      this.result = '';
+    }
+  }
+
+  handleCatSearch(event) {
+    const query = event.target.value.toLowerCase();
+
+    this.catInfo = this.catInfo.pipe(
+      map((cats) => 
+        cats.filter((cat) => {
+          const catName = 
+            [...cat.name].join('').toLowerCase();
+
+          return catName.indexOf(query) > -1;
+        })
+      )
+    );
+
+    if (!query) {
+      this.catInfo = this.catservice.getCatInfoAlphabetically();
+    }
+  }
+
+
   onCatSearch() {
     const searchlower = this.search.trim().toLowerCase();
     console.log('Search: ', searchlower);
@@ -95,7 +150,7 @@ export class PetsInfoPage implements OnInit {
   async openNewDogModal() {
     const modal = await this.modalController.create({
       component: DogAddPage,
-      presentingElement: this.routerOutlet.nativeEl
+      presentingElement: this.routerOutlet.nativeEl,
     });
     return await modal.present();
   }
@@ -103,10 +158,9 @@ export class PetsInfoPage implements OnInit {
   async openNewCatModal() {
     const modal = await this.modalController.create({
       component: CatAddPage,
-      presentingElement: this.routerOutlet.nativeEl
+      presentingElement: this.routerOutlet.nativeEl,
     });
     return await modal.present();
   }
   ngOnInit() {}
-
 }
